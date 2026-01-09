@@ -128,7 +128,7 @@ export function GalleryHero() {
                                 ) : (
                                     <motion.div
                                         animate={{ rotate: 360 }}
-                                        transition={{ duration: 10, repeat: Infinity, ease: "linear", duration: 20 / (Math.abs(obj.rotateSpeed || 1)) }}
+                                        transition={{ repeat: Infinity, ease: "linear", duration: 20 / (Math.abs(obj.rotateSpeed || 1)) }}
                                         className="w-32 h-32 md:w-48 md:h-48 opacity-80"
                                         style={{ scale: obj.scale }}
                                     >
