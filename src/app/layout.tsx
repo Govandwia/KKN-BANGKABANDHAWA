@@ -13,11 +13,6 @@ const jakarta = Plus_Jakarta_Sans({
 export const metadata: Metadata = {
   title: "KKN Bangka Bandhawa",
   description: "Website Resmi KKN-PPM UGM Bangka Bandhawa 2026",
-  icons: {
-    icon: "/logo/Logo KKN.png",
-    shortcut: "/logo/Logo KKN.png",
-    apple: "/logo/Logo KKN.png",
-  },
 };
 
 export default function RootLayout({
