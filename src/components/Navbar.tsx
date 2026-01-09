@@ -4,6 +4,8 @@ import Link from "next/link";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import { cn } from "@/lib/utils";
+import { Menu, X } from "lucide-react";
+import { AnimatePresence, motion } from "framer-motion";
 
 const NAV_LINKS = [
     { href: "/", label: "Beranda" },
@@ -15,6 +17,7 @@ const NAV_LINKS = [
 
 export function Navbar() {
     const [isScrolled, setIsScrolled] = useState(false);
+    const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
     useEffect(() => {
         const handleScroll = () => {
@@ -29,69 +32,120 @@ export function Navbar() {
         return () => window.removeEventListener("scroll", handleScroll);
     }, []);
 
+    // Lock body scroll when mobile menu is open
+    useEffect(() => {
+        if (isMobileMenuOpen) {
+            document.body.style.overflow = "hidden";
+        } else {
+            document.body.style.overflow = "unset";
+        }
+    }, [isMobileMenuOpen]);
+
     return (
-        <div className="fixed top-6 inset-x-0 z-50 flex justify-center px-4 transition-all duration-300">
-            <header
-                className={cn(
-                    "w-full max-w-5xl h-16 px-6 flex items-center justify-between rounded-full transition-all duration-500",
-                    isScrolled
-                        ? "bg-white/90 backdrop-blur-md shadow-lg shadow-black/5 border border-white/20"
-                        : "bg-transparent border-transparent shadow-none"
-                )}
-            >
-                {/* Logo Area */}
-                <Link href="/" className="flex items-center gap-3 group">
-                    <Image
-                        src="/logo/Logo KKN.png"
-                        width={40}
-                        height={40}
-                        alt="Logo Bangka Bandhawa"
-                        className="w-10 h-10 object-contain group-hover:rotate-12 transition-transform"
-                    />
-                    <Image
-                        src="/logo/bangkatext.png"
-                        width={150}
-                        height={40}
-                        alt="Bangka Bandhawa Text"
-                        className={cn(
-                            "h-10 w-auto object-contain hidden sm:block transition-all duration-300",
-                            isScrolled && "invert opacity-80"
-                        )}
-                    />
-                </Link>
-
-                {/* Desktop Navigation */}
-                <nav className="hidden md:flex items-center gap-6">
-                    {NAV_LINKS.map((link) => (
-                        <Link
-                            key={link.href}
-                            href={link.href}
+        <>
+            <div className="fixed top-6 inset-x-0 z-50 flex justify-center px-4 transition-all duration-300">
+                <header
+                    className={cn(
+                        "w-full max-w-5xl h-16 px-6 flex items-center justify-between rounded-full transition-all duration-500",
+                        isScrolled || isMobileMenuOpen
+                            ? "bg-white/90 backdrop-blur-md shadow-lg shadow-black/5 border border-white/20"
+                            : "bg-transparent border-transparent shadow-none"
+                    )}
+                >
+                    {/* Logo Area */}
+                    <Link href="/" className="flex items-center gap-3 group relative z-50" onClick={() => setIsMobileMenuOpen(false)}>
+                        <Image
+                            src="/logo/Logo KKN.png"
+                            width={40}
+                            height={40}
+                            alt="Logo Bangka Bandhawa"
+                            className="w-10 h-10 object-contain group-hover:rotate-12 transition-transform"
+                        />
+                        <Image
+                            src="/logo/bangkatext.png"
+                            width={150}
+                            height={40}
+                            alt="Bangka Bandhawa Text"
                             className={cn(
-                                "text-sm font-medium hover:font-bold transition-all relative group",
-                                isScrolled ? "text-brand-text/80 hover:text-brand-blue" : "text-white/90 hover:text-white"
+                                "h-10 w-auto object-contain hidden sm:block transition-all duration-300",
+                                (isScrolled || isMobileMenuOpen) && "invert opacity-80"
                             )}
-                        >
-                            {link.label}
-                            {/* Underline Effect */}
-                            <span className={cn(
-                                "absolute -bottom-1 left-0 w-0 h-0.5 transition-all group-hover:w-full",
-                                isScrolled ? "bg-brand-blue" : "bg-white"
-                            )} />
-                        </Link>
-                    ))}
-                    <Link href="/sponsorship" className="px-5 py-2 rounded-full bg-brand-yellow text-brand-text text-sm font-bold hover:bg-yellow-400 hover:shadow-lg hover:shadow-yellow-500/20 transition-all cursor-pointer">
-                        Our Sponsor
+                        />
                     </Link>
-                </nav>
 
-                {/* Mobile Menu Toggle */}
-                <button className={cn("md:hidden p-2", isScrolled ? "text-brand-text" : "text-white")}>
-                    <span className="sr-only">Open Menu</span>
-                    <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16m-7 6h7" />
-                    </svg>
-                </button>
-            </header>
-        </div>
+                    {/* Desktop Navigation */}
+                    <nav className="hidden md:flex items-center gap-6">
+                        {NAV_LINKS.map((link) => (
+                            <Link
+                                key={link.href}
+                                href={link.href}
+                                className={cn(
+                                    "text-sm font-medium hover:font-bold transition-all relative group",
+                                    isScrolled ? "text-brand-text/80 hover:text-brand-blue" : "text-white/90 hover:text-white"
+                                )}
+                            >
+                                {link.label}
+                                {/* Underline Effect */}
+                                <span className={cn(
+                                    "absolute -bottom-1 left-0 w-0 h-0.5 transition-all group-hover:w-full",
+                                    isScrolled ? "bg-brand-blue" : "bg-white"
+                                )} />
+                            </Link>
+                        ))}
+                        <Link href="/sponsorship" className="px-5 py-2 rounded-full bg-brand-yellow text-brand-text text-sm font-bold hover:bg-yellow-400 hover:shadow-lg hover:shadow-yellow-500/20 transition-all cursor-pointer">
+                            Our Sponsor
+                        </Link>
+                    </nav>
+
+                    {/* Mobile Menu Toggle */}
+                    <button
+                        className={cn("md:hidden p-2 relative z-50 transition-colors", (isScrolled || isMobileMenuOpen) ? "text-brand-text" : "text-white")}
+                        onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+                    >
+                        <span className="sr-only">Toggle Menu</span>
+                        {isMobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+                    </button>
+                </header>
+            </div>
+
+            {/* Mobile Menu Overlay */}
+            <AnimatePresence>
+                {isMobileMenuOpen && (
+                    <motion.div
+                        initial={{ opacity: 0, y: -20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        exit={{ opacity: 0, y: -20 }}
+                        transition={{ duration: 0.2 }}
+                        className="fixed inset-0 z-40 bg-white/95 backdrop-blur-xl md:hidden flex flex-col pt-32 px-8 pb-8"
+                    >
+                        <nav className="flex flex-col gap-6">
+                            {NAV_LINKS.map((link, idx) => (
+                                <Link
+                                    key={link.href}
+                                    href={link.href}
+                                    onClick={() => setIsMobileMenuOpen(false)}
+                                    className="text-2xl font-bold text-brand-text hover:text-brand-blue transition-colors flex items-center justify-between border-b border-gray-100 pb-4"
+                                >
+                                    {link.label}
+                                    <span className="text-sm font-normal text-gray-400">0{idx + 1}</span>
+                                </Link>
+                            ))}
+                            <Link
+                                href="/sponsorship"
+                                onClick={() => setIsMobileMenuOpen(false)}
+                                className="mt-4 w-full py-4 rounded-xl bg-brand-yellow text-brand-text text-lg font-bold text-center shadow-lg shadow-yellow-500/20"
+                            >
+                                Our Sponsor
+                            </Link>
+                        </nav>
+
+                        <div className="mt-auto text-center text-gray-400 text-sm">
+                            <p>© 2026 KKN Bangka Bandhawa</p>
+                            <p>Universitas Gadjah Mada</p>
+                        </div>
+                    </motion.div>
+                )}
+            </AnimatePresence>
+        </>
     );
 }
