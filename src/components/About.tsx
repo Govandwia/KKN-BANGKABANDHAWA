@@ -78,11 +78,13 @@ export function About() {
                         <div className="relative aspect-square rounded-[3rem] overflow-hidden border-2 border-dashed border-brand-blue/30 p-4 bg-white rotate-3 hover:rotate-0 transition-transform duration-500">
                             {/* Inner image frame */}
                             <div className="relative w-full h-full rounded-[2.5rem] overflow-hidden shadow-2xl">
-                                {/* Placeholder for real activity photo - using a gradient/pattern for now if no image provided */}
-                                <div className="absolute inset-0 bg-gradient-to-br from-brand-blue/20 to-brand-green/20" />
-                                <div className="absolute inset-0 flex items-center justify-center text-brand-text/20 font-bold text-xl">
-                                    [Foto Kegiatan KKN]
-                                </div>
+                                <Image
+                                    src="/photo/IMG_0910.jpg"
+                                    alt="Foto Bersama Tim KKN Bangka Bandhawa"
+                                    fill
+                                    className="object-cover hover:scale-105 transition-transform duration-700"
+                                />
+                                {/* Overlay Gradient for text readability if needed, but clean is better here */}
                             </div>
                         </div>
                         {/* Decorative Card */}

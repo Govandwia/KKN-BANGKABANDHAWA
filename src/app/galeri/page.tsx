@@ -6,53 +6,10 @@ import { GalleryHero } from "@/components/GalleryHero";
 import { useState } from "react";
 import { ArrowUpRight } from "lucide-react";
 
-// Types
-type Category = "Penerjunan" | "Minggu 1" | "Minggu 2" | "Minggu 3" | "Minggu 4" | "Minggu 5" | "Minggu 6" | "Minggu 7" | "Penarikan";
+import { GALLERY_CATEGORIES, ALL_PHOTOS } from "@/data/gallery";
+import { Category } from "@/data/gallery";
 
-const CATEGORIES: Category[] = [
-    "Penerjunan",
-    "Minggu 1", "Minggu 2", "Minggu 3", "Minggu 4", "Minggu 5", "Minggu 6", "Minggu 7",
-    "Penarikan"
-];
-
-// Placeholder Data
-const ALL_PHOTOS = [
-    // Penerjunan
-    { id: 1, title: "Upacara Penerjunan", category: "Penerjunan", color: "bg-brand-blue/10" },
-    { id: 2, title: "Tiba di Lokasi", category: "Penerjunan", color: "bg-brand-green/10" },
-
-    // Minggu 1 - Survey & Sosialisasi
-    { id: 3, title: "Silaturahmi Warga", category: "Minggu 1", color: "bg-yellow-100" },
-    { id: 4, title: "Survey UMKM", category: "Minggu 1", color: "bg-orange-100" },
-
-    // Minggu 2 - Program Kerja Awal
-    { id: 5, title: "Penyuluhan Kesehatan", category: "Minggu 2", color: "bg-red-100" },
-    { id: 6, title: "Bimbel Anak Sekolah", category: "Minggu 2", color: "bg-pink-100" },
-
-    // Minggu 3 - Pelaksanaan
-    { id: 7, title: "Kerja Bakti Desa", category: "Minggu 3", color: "bg-purple-100" },
-    { id: 8, title: "Pelatihan Digital", category: "Minggu 3", color: "bg-indigo-100" },
-
-    // Minggu 4 - Mid Term
-    { id: 9, title: "Evaluasi Tengah Periode", category: "Minggu 4", color: "bg-blue-100" },
-    { id: 10, title: "Lomba 17an", category: "Minggu 4", color: "bg-cyan-100" },
-
-    // Minggu 5 - Lanjutan Proker
-    { id: 11, title: "Panen Raya Kebun", category: "Minggu 5", color: "bg-teal-100" },
-    { id: 12, title: "Demo Masak", category: "Minggu 5", color: "bg-emerald-100" },
-
-    // Minggu 6 - Finishing
-    { id: 13, title: "Pembuatan Peta Desa", category: "Minggu 6", color: "bg-lime-100" },
-    { id: 14, title: "Renovasi Gapura", category: "Minggu 6", color: "bg-amber-100" },
-
-    // Minggu 7 - Laporan
-    { id: 15, title: "Seminar Hasil", category: "Minggu 7", color: "bg-violet-100" },
-    { id: 16, title: "Pamitan Sekolah", category: "Minggu 7", color: "bg-fuchsia-100" },
-
-    // Penarikan
-    { id: 17, title: "Malam Perpisahan", category: "Penarikan", color: "bg-rose-100" },
-    { id: 18, title: "Upacara Penarikan", category: "Penarikan", color: "bg-slate-100" },
-];
+const CATEGORIES = GALLERY_CATEGORIES;
 
 export default function GalleryPage() {
     const [activeCategory, setActiveCategory] = useState<Category>("Penerjunan");
@@ -120,9 +77,15 @@ export default function GalleryPage() {
                                 {/* Card Container */}
                                 <div className="relative w-full aspect-video rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-shadow duration-300 bg-white">
 
-                                    {/* Image Placeholder */}
-                                    <div className={`w-full h-full ${photo.color} relative flex items-center justify-center`}>
-                                        <span className="text-slate-400 font-bold opacity-50">[IMG {photo.title}]</span>
+                                    {/* Image Component */}
+                                    <div className="relative w-full h-full bg-slate-200">
+                                        <Image
+                                            src={photo.src}
+                                            alt={photo.title}
+                                            fill
+                                            className="object-cover"
+                                            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                                        />
                                     </div>
 
                                     {/* Overlay & Icon */}

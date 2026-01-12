@@ -1,49 +1,14 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
-import { BookOpen, TrendingUp, Heart, Leaf } from "lucide-react";
-
-const PROGRAMS = [
-    {
-        id: 1,
-        title: "Pilar Pendidikan",
-        description: "Meningkatkan kualitas SDM melalui bimbingan belajar, workshop literasi digital, dan pelatihan soft skill.",
-        icon: BookOpen,
-        color: "bg-blue-100",
-        text: "text-blue-600",
-        border: "border-blue-200"
-    },
-    {
-        id: 2,
-        title: "Pilar Ekonomi",
-        description: "Pemberdayaan UMKM lokal dan optimalisasi potensi pariwisata untuk kemandirian ekonomi desa.",
-        icon: TrendingUp,
-        color: "bg-yellow-100", // Sunrise Yellow
-        text: "text-amber-600",
-        border: "border-yellow-200"
-    },
-    {
-        id: 3,
-        title: "Pilar Kesehatan",
-        description: "Layanan cek kesehatan gratis, sosialisasi stunting, dan promosi gaya hidup bersih.",
-        icon: Heart,
-        color: "bg-red-100", // Bandhawa Red
-        text: "text-red-600",
-        border: "border-red-200"
-    },
-    {
-        id: 4,
-        title: "Pilar Lingkungan",
-        description: "Pengelolaan limbah berkelanjutan dan reboisasi kawasan pesisir untuk menjaga ekosistem.",
-        icon: Leaf,
-        color: "bg-green-100", // Nature Green
-        text: "text-green-600",
-        border: "border-green-200"
-    }
-];
+import { PROGRAM_CLUSTERS } from "@/data/programs";
+import { ArrowRight, CheckCircle2 } from "lucide-react";
 
 export function Programs() {
+    const [activeCluster, setActiveCluster] = useState(PROGRAM_CLUSTERS[0]);
+
     return (
         <section className="relative py-24 bg-slate-50 overflow-hidden" id="program">
 
@@ -68,7 +33,7 @@ export function Programs() {
             <div className="w-full max-w-7xl lg:max-w-[90%] mx-auto px-4 md:px-8 relative z-10">
 
                 {/* Header */}
-                <div className="text-center mb-16 max-w-2xl mx-auto">
+                <div className="text-center mb-12 max-w-3xl mx-auto">
                     <motion.span
                         initial={{ opacity: 0, y: 20 }}
                         whileInView={{ opacity: 1, y: 0 }}
@@ -91,34 +56,83 @@ export function Programs() {
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true }}
                         transition={{ delay: 0.2 }}
-                        className="text-slate-600 text-lg"
+                        className="text-slate-600 text-lg mb-8"
                     >
-                        Empat pilar utama yang menjadi pondasi pengabdian kami dalam membangun sinergi dan kebermanfaatan.
+                        Kami membagi fokus pengabdian dalam 4 klaster utama untuk mencakup seluruh aspek kebutuhan masyarakat secara holistik.
                     </motion.p>
+
+                    <motion.div
+                        initial={{ opacity: 0, y: 20 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true }}
+                        transition={{ delay: 0.3 }}
+                    >
+                        <a
+                            href="/program"
+                            className="inline-flex items-center gap-2 px-6 py-3 bg-brand-green text-white font-semibold rounded-full hover:bg-brand-green/90 transition-transform hover:scale-105 shadow-lg shadow-brand-green/20"
+                        >
+                            Lihat Detail Semua Program
+                            <ArrowRight className="w-4 h-4" />
+                        </a>
+                    </motion.div>
                 </div>
 
-                {/* Grid Cards */}
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-                    {PROGRAMS.map((program, idx) => (
-                        <motion.div
-                            key={program.id}
-                            initial={{ opacity: 0, y: 30 }}
-                            whileInView={{ opacity: 1, y: 0 }}
-                            viewport={{ once: true }}
-                            transition={{ delay: idx * 0.1 }}
-                            whileHover={{ y: -10 }}
-                            className={`p-8 rounded-[2.5rem] bg-white border-2 border-dashed ${program.border} shadow-sm hover:shadow-xl transition-all duration-300 group`}
+                {/* Modern Tabs Navigation */}
+                <div className="flex flex-wrap justify-center gap-3 md:gap-4 mb-12">
+                    {PROGRAM_CLUSTERS.map((cluster) => (
+                        <button
+                            key={cluster.id}
+                            onClick={() => setActiveCluster(cluster)}
+                            className={`relative px-6 py-3 rounded-full flex items-center gap-2 transition-all duration-300 font-semibold group ${activeCluster.id === cluster.id
+                                ? `bg-white shadow-md ${cluster.textColor} ring-2 ring-offset-2 ring-offset-slate-50 ${cluster.textColor.replace("text-", "ring-").replace("600", "200")}`
+                                : "text-slate-500 hover:text-slate-700 bg-white/50 hover:bg-white"
+                                }`}
                         >
-                            <div className={`w-14 h-14 rounded-2xl ${program.color} ${program.text} flex items-center justify-center mb-6 text-2xl group-hover:scale-110 transition-transform`}>
-                                <program.icon className="w-7 h-7" />
-                            </div>
-                            <h3 className="text-xl font-bold text-brand-text mb-3">{program.title}</h3>
-                            <p className="text-slate-500 leading-relaxed text-sm">
-                                {program.description}
-                            </p>
-                        </motion.div>
+                            <cluster.icon className={`w-4 h-4 ${activeCluster.id === cluster.id ? cluster.textColor : "text-slate-400 group-hover:text-slate-600"}`} />
+                            <span>{cluster.name}</span>
+                            {activeCluster.id === cluster.id && (
+                                <motion.div
+                                    layoutId="activeTabIndicator"
+                                    className={`absolute inset-0 rounded-full bg-current opacity-5 pointer-events-none`}
+                                />
+                            )}
+                        </button>
                     ))}
                 </div>
+
+                {/* Cluster Content - Animated Transition */}
+                <AnimatePresence mode="wait">
+                    <motion.div
+                        key={activeCluster.id}
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        exit={{ opacity: 0, y: -20 }}
+                        transition={{ duration: 0.3 }}
+                        className="max-w-4xl mx-auto"
+                    >
+                        <div className={`p-8 md:p-14 rounded-[2.5rem] bg-white border border-slate-100 shadow-xl shadow-slate-200/50 relative overflow-hidden group hover:shadow-2xl transition-all duration-500`}>
+                            {/* Dynamic Background */}
+                            <div className={`absolute top-0 right-0 w-64 h-64 ${activeCluster.themeColor} rounded-full blur-3xl -mr-20 -mt-20 opacity-60 group-hover:scale-110 transition-transform duration-700`} />
+                            <div className={`absolute bottom-0 left-0 w-64 h-64 ${activeCluster.themeColor} rounded-full blur-3xl -ml-20 -mb-20 opacity-60 group-hover:scale-110 transition-transform duration-700`} />
+
+                            <div className="relative z-10 flex flex-col items-center text-center">
+                                {/* Icon */}
+                                <div className={`w-24 h-24 rounded-3xl ${activeCluster.themeColor} ${activeCluster.textColor} flex items-center justify-center mb-8 text-3xl shadow-lg transform group-hover:-translate-y-2 transition-transform duration-500`}>
+                                    <activeCluster.icon className="w-10 h-10" />
+                                </div>
+
+                                {/* Text Content */}
+                                <h3 className="text-3xl md:text-5xl font-black text-brand-text mb-6 tracking-tight">
+                                    {activeCluster.name}
+                                </h3>
+                                <p className="text-slate-500 text-lg md:text-2xl leading-relaxed max-w-3xl font-medium">
+                                    "{activeCluster.description}"
+                                </p>
+
+                            </div>
+                        </div>
+                    </motion.div>
+                </AnimatePresence>
 
             </div>
         </section>

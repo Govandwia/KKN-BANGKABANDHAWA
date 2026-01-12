@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 import { cn } from "@/lib/utils";
 import { Menu, X } from "lucide-react";
 import { AnimatePresence, motion } from "framer-motion";
+import { ALL_PHOTOS } from "@/data/gallery";
 
 const NAV_LINKS = [
     { href: "/", label: "Beranda" },
@@ -116,15 +117,15 @@ export function Navbar() {
                         animate={{ opacity: 1, y: 0 }}
                         exit={{ opacity: 0, y: -20 }}
                         transition={{ duration: 0.2 }}
-                        className="fixed inset-0 z-40 bg-white/95 backdrop-blur-xl md:hidden flex flex-col pt-32 px-8 pb-8"
+                        className="fixed inset-0 z-40 bg-white/95 backdrop-blur-xl md:hidden flex flex-col pt-24 px-6 pb-8 overflow-y-auto"
                     >
-                        <nav className="flex flex-col gap-6">
+                        <nav className="flex flex-col gap-4">
                             {NAV_LINKS.map((link, idx) => (
                                 <Link
                                     key={link.href}
                                     href={link.href}
                                     onClick={() => setIsMobileMenuOpen(false)}
-                                    className="text-2xl font-bold text-brand-text hover:text-brand-blue transition-colors flex items-center justify-between border-b border-gray-100 pb-4"
+                                    className="text-2xl font-bold text-brand-text hover:text-brand-blue transition-colors flex items-center justify-between border-b border-gray-100 pb-3"
                                 >
                                     {link.label}
                                     <span className="text-sm font-normal text-gray-400">0{idx + 1}</span>
@@ -133,13 +134,33 @@ export function Navbar() {
                             <Link
                                 href="/sponsorship"
                                 onClick={() => setIsMobileMenuOpen(false)}
-                                className="mt-4 w-full py-4 rounded-xl bg-brand-yellow text-brand-text text-lg font-bold text-center shadow-lg shadow-yellow-500/20"
+                                className="mt-2 w-full py-3 rounded-xl bg-brand-yellow text-brand-text text-lg font-bold text-center shadow-lg shadow-yellow-500/20"
                             >
                                 Our Sponsor
                             </Link>
+
+                            {/* Fly-in Panel Gallery Preview */}
+                            <div className="mt-6">
+                                <h3 className="text-sm font-bold text-slate-400 uppercase tracking-wider mb-3">Galeri Terbaru</h3>
+                                <div className="flex gap-3 overflow-x-auto pb-4 -mx-6 px-6 scrollbar-hide snap-x">
+                                    {ALL_PHOTOS.slice(0, 6).map((photo) => (
+                                        <div key={photo.id} className="relative min-w-[120px] aspect-[4/5] rounded-xl overflow-hidden shadow-md snap-start flex-shrink-0">
+                                            <Image
+                                                src={photo.src}
+                                                alt={photo.title}
+                                                fill
+                                                className="object-cover"
+                                            />
+                                        </div>
+                                    ))}
+                                    <Link href="/galeri" onClick={() => setIsMobileMenuOpen(false)} className="min-w-[100px] aspect-[4/5] rounded-xl bg-slate-100 flex items-center justify-center text-brand-blue font-bold text-sm snap-start flex-shrink-0">
+                                        Lihat Semua
+                                    </Link>
+                                </div>
+                            </div>
                         </nav>
 
-                        <div className="mt-auto text-center text-gray-400 text-sm">
+                        <div className="mt-auto text-center text-gray-400 text-sm pt-8">
                             <p>© 2026 KKN Bangka Bandhawa</p>
                             <p>Universitas Gadjah Mada</p>
                         </div>

@@ -7,18 +7,27 @@ export function VisionMission() {
     return (
         <section className="relative py-24 overflow-hidden bg-slate-50" id="visi-misi">
             {/* Background Ornament - Left */}
-            <div className="absolute top-0 left-0 w-64 h-64 -translate-x-1/3 -translate-y-1/3 opacity-10 pointer-events-none">
+            {/* Background Ornament - Left */}
+            <motion.div
+                className="absolute top-0 left-0 w-64 h-64 -translate-x-1/3 -translate-y-1/3 opacity-10 pointer-events-none"
+                animate={{ rotate: 360 }}
+                transition={{ duration: 50, repeat: Infinity, ease: "linear" }}
+            >
                 <Image
                     src="/ornaments/or2.png"
                     alt="Decoration"
                     width={400}
                     height={400}
-                    className="w-full h-full object-contain rotate-90"
+                    className="w-full h-full object-contain"
                 />
-            </div>
+            </motion.div>
 
             {/* Background Ornament - Right */}
-            <div className="absolute bottom-0 right-0 w-96 h-96 translate-x-1/4 translate-y-1/4 opacity-5 pointer-events-none">
+            <motion.div
+                className="absolute bottom-0 right-0 w-96 h-96 translate-x-1/4 translate-y-1/4 opacity-5 pointer-events-none"
+                animate={{ rotate: -360 }}
+                transition={{ duration: 60, repeat: Infinity, ease: "linear" }}
+            >
                 <Image
                     src="/ornaments/or3.png"
                     alt="Decoration"
@@ -26,7 +35,7 @@ export function VisionMission() {
                     height={500}
                     className="w-full h-full object-contain"
                 />
-            </div>
+            </motion.div>
 
             <div className="w-full px-4 md:px-12 lg:px-20 relative z-10">
 
@@ -47,7 +56,7 @@ export function VisionMission() {
                         transition={{ delay: 0.1 }}
                         className="text-slate-500 text-lg max-w-2xl mx-auto"
                     >
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                        Membangun masa depan berkelanjutan melalui kolaborasi dan inovasi bersama masyarakat.
                     </motion.p>
                 </div>
 
@@ -71,7 +80,7 @@ export function VisionMission() {
 
                             <h3 className="text-2xl font-bold text-brand-text mb-4">Visi Kami</h3>
                             <p className="text-slate-600 leading-relaxed">
-                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam in dui mauris. Vivamus hendrerit arcu sed erat molestie vehicula. Sed auctor neque eu tellus rhoncus ut eleifend nibh porttitor. Ut in nulla enim. Phasellus molestie magna non est bibendum non venenatis nisl tempor.
+                                Mewujudkan Desa Batu Beriga dan Kecamatan Lubuk Besar sebagai pusat komunitas produktif yang mendukung pertumbuhan UMKM dan pariwisata desa melalui penyediaan community space serta inovasi alat yang aplikatif dan berkelanjutan.
                             </p>
                         </div>
                     </motion.div>
@@ -93,16 +102,38 @@ export function VisionMission() {
 
                             <h3 className="text-2xl font-bold text-brand-text mb-4">Misi Kami</h3>
                             <ul className="space-y-4">
-                                {[1, 2, 3, 4].map((item) => (
-                                    <li key={item} className="flex items-start gap-3 text-slate-600">
-                                        <span className="w-6 h-6 rounded-full bg-brand-yellow/20 text-brand-yellow flex items-center justify-center flex-shrink-0 text-xs font-bold mt-0.5">
-                                            {item}
-                                        </span>
-                                        <span>
-                                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore.
-                                        </span>
-                                    </li>
-                                ))}
+                                <li className="flex items-start gap-3 text-slate-600">
+                                    <span className="w-6 h-6 rounded-full bg-brand-yellow/20 text-brand-yellow flex items-center justify-center flex-shrink-0 text-xs font-bold mt-0.5">
+                                        1
+                                    </span>
+                                    <span>
+                                        Membangun dan mengaktifkan community space desa sebagai wadah kolaborasi, pelatihan, promosi, dan inkubasi UMKM serta pusat interaksi masyarakat dan pelaku pariwisata desa.
+                                    </span>
+                                </li>
+                                <li className="flex items-start gap-3 text-slate-600">
+                                    <span className="w-6 h-6 rounded-full bg-brand-yellow/20 text-brand-yellow flex items-center justify-center flex-shrink-0 text-xs font-bold mt-0.5">
+                                        2
+                                    </span>
+                                    <span>
+                                        Membangun ekosistem budaya ekonomi yang mandiri dengan mengintegrasikan nilai lokal, kearifan budaya, serta aktivitas ekonomi masyarakat dalam pengelolaan UMKM dan pariwisata desa.
+                                    </span>
+                                </li>
+                                <li className="flex items-start gap-3 text-slate-600">
+                                    <span className="w-6 h-6 rounded-full bg-brand-yellow/20 text-brand-yellow flex items-center justify-center flex-shrink-0 text-xs font-bold mt-0.5">
+                                        3
+                                    </span>
+                                    <span>
+                                        Mengintegrasikan UMKM dengan sektor pariwisata desa, sehingga community space berfungsi sebagai pusat informasi wisata sekaligus etalase produk unggulan lokal.
+                                    </span>
+                                </li>
+                                <li className="flex items-start gap-3 text-slate-600">
+                                    <span className="w-6 h-6 rounded-full bg-brand-yellow/20 text-brand-yellow flex items-center justify-center flex-shrink-0 text-xs font-bold mt-0.5">
+                                        4
+                                    </span>
+                                    <span>
+                                        Mendorong keberlanjutan program melalui pelibatan aktif masyarakat, pemerintah desa, dan kelompok lokal dalam pengelolaan community space serta pemanfaatannya pasca-KKN.
+                                    </span>
+                                </li>
                             </ul>
                         </div>
                     </motion.div>

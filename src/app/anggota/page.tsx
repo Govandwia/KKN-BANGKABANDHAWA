@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import { MEMBERS, Member } from "@/data/members";
 import { Layers, Users, MapPin, User, Star } from "lucide-react"; // Added Star icon for Kadiv
 import { useState } from "react";
+import Image from "next/image";
 
 // View Types
 type ViewMode = "UNIT" | "CLUSTER" | "SUBUNIT";
@@ -48,9 +49,14 @@ export default function MembersPage() {
                             transition={{ delay: idx * 0.05 }}
                             className="group relative"
                         >
-                            {/* Card Style */}
-                            <div className={`bg-white p-4 rounded-xl shadow-sm hover:shadow-xl transition-all duration-300 border border-slate-100 hover:-translate-y-1 ${member.role === 'Kadiv' ? 'ring-2 ring-brand-yellow/50' : ''}`}>
-                                <div className="aspect-square bg-slate-100 rounded-lg mb-4 overflow-hidden relative">
+                            <div className={`bg-white p-4 rounded-xl shadow-sm hover:shadow-xl transition-all duration-300 border border-slate-100 hover:-translate-y-1 relative overflow-hidden ${member.role === 'Kadiv' ? 'ring-2 ring-brand-yellow/50' : ''}`}>
+                                {/* Card Pattern Watermark */}
+                                <div className="absolute -right-4 -bottom-4 opacity-[0.03] pointer-events-none transition-transform group-hover:scale-110 group-hover:rotate-12">
+                                    <Image src="/ornaments/or1.png" width={120} height={120} alt="pattern" />
+                                </div>
+                                <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-brand-blue/20 to-brand-green/20"></div>
+
+                                <div className="aspect-square bg-slate-100 rounded-lg mb-4 overflow-hidden relative z-10">
                                     <div className="absolute inset-0 flex items-center justify-center text-slate-300">
                                         <User className="w-16 h-16" />
                                     </div>
@@ -72,27 +78,29 @@ export default function MembersPage() {
                                     </div>
                                 </div>
 
-                                <h3 className="font-bold text-brand-text leading-tight mb-1">{member.name}</h3>
+                                <h3 className="font-bold text-brand-text leading-tight mb-1 relative z-10 text-balance">{member.name}</h3>
 
                                 {/* Dynamic Subtext based on View */}
-                                {viewMode === 'UNIT' && (
-                                    <>
-                                        {member.role === 'Kadiv' || member.role === 'Anggota' ? (
-                                            <p className="text-slate-400 text-xs mb-1">Divisi {member.division}</p>
-                                        ) : (
-                                            <p className="text-brand-blue font-bold text-sm mb-1">{member.role}</p>
-                                        )}
-                                    </>
-                                )}
-                                {viewMode === 'CLUSTER' && (
-                                    <p className="text-slate-500 text-xs mb-1">{member.major}</p>
-                                )}
-                                {viewMode === 'SUBUNIT' && (
-                                    <p className="text-slate-500 text-xs mb-1">{member.cluster} • {member.major}</p>
-                                )}
+                                <div className="relative z-10">
+                                    {viewMode === 'UNIT' && (
+                                        <>
+                                            {member.role === 'Kadiv' || member.role === 'Anggota' ? (
+                                                <p className="text-slate-400 text-xs mb-1">Divisi {member.division}</p>
+                                            ) : (
+                                                <p className="text-brand-blue font-bold text-sm mb-1">{member.role}</p>
+                                            )}
+                                        </>
+                                    )}
+                                    {viewMode === 'CLUSTER' && (
+                                        <p className="text-slate-500 text-xs mb-1">{member.major}</p>
+                                    )}
+                                    {viewMode === 'SUBUNIT' && (
+                                        <p className="text-slate-500 text-xs mb-1">{member.cluster} • {member.major}</p>
+                                    )}
+                                </div>
 
                                 {/* Always show the 'other' context info in small text */}
-                                <div className="mt-2 pt-2 border-t border-slate-100 flex flex-wrap gap-1">
+                                <div className="mt-2 pt-2 border-t border-slate-100 flex flex-wrap gap-1 relative z-10">
                                     {viewMode !== 'CLUSTER' && (
                                         <span className="text-[10px] bg-blue-50 text-blue-600 px-2 py-0.5 rounded">{member.cluster}</span>
                                     )}
@@ -112,10 +120,28 @@ export default function MembersPage() {
         <main className="min-h-screen bg-[#FDF6E3] pb-32">
 
             {/* HERO */}
-            <div className="bg-brand-green pt-32 pb-24 rounded-b-[3rem] relative overflow-hidden mb-12">
+            <div className="bg-brand-green pt-32 pb-24 rounded-b-[3rem] relative overflow-hidden mb-12 shadow-xl">
+                {/* Ornaments - Top Right */}
+                <motion.div
+                    animate={{ rotate: 360 }}
+                    transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
+                    className="absolute -right-10 -top-10 opacity-10 w-64 h-64 pointer-events-none"
+                >
+                    <Image src="/ornaments/or2.png" width={300} height={300} alt="ornament" />
+                </motion.div>
+
+                {/* Ornaments - Bottom Left */}
+                <motion.div
+                    animate={{ rotate: -360 }}
+                    transition={{ duration: 25, repeat: Infinity, ease: "linear" }}
+                    className="absolute -left-10 -bottom-10 opacity-10 w-48 h-48 pointer-events-none"
+                >
+                    <Image src="/ornaments/or4.png" width={200} height={200} alt="ornament" />
+                </motion.div>
+
                 <div className="container mx-auto px-6 text-center relative z-10">
-                    <h1 className="text-4xl md:text-6xl font-black text-white mb-6">Tim KKN</h1>
-                    <p className="text-white/80 text-xl max-w-2xl mx-auto">
+                    <h1 className="text-4xl md:text-6xl font-black text-white mb-6 drop-shadow-sm">Tim KKN</h1>
+                    <p className="text-white/90 text-xl max-w-2xl mx-auto font-medium">
                         Kenalan dengan wajah-wajah di balik Bangka Bandhawa.
                     </p>
                 </div>
@@ -123,38 +149,74 @@ export default function MembersPage() {
 
             {/* VIEW SWITCHER */}
             <div className="sticky top-24 z-40 mb-16 px-4">
-                <div className="max-w-3xl mx-auto bg-white/90 backdrop-blur-md p-1.5 rounded-full shadow-lg border border-white/50 flex p-1">
+                <div className="max-w-3xl mx-auto bg-white shadow-[0_8px_30px_rgb(0,0,0,0.08)] p-2 rounded-full border border-slate-100 flex relative overflow-hidden">
+                    {/* Switcher Background Ornament */}
+                    <div className="absolute top-0 right-0 opacity-5 pointer-events-none">
+                        <Image src="/ornaments/or1.png" width={100} height={100} alt="pattern" />
+                    </div>
+
                     <button
                         onClick={() => setViewMode("UNIT")}
-                        className={`flex-1 flex items-center justify-center gap-2 py-3 rounded-full font-bold text-sm transition-all ${viewMode === "UNIT" ? "bg-brand-blue text-white shadow-md" : "text-slate-500 hover:bg-slate-100"}`}
+                        className={`flex-1 flex items-center justify-center gap-2 py-3 rounded-full font-bold text-sm transition-all duration-300 relative z-10 ${viewMode === "UNIT" ? "bg-brand-blue text-white shadow-lg scale-105" : "text-slate-500 hover:bg-slate-50 hover:text-brand-blue"}`}
                     >
                         <Users className="w-4 h-4" />
-                        Struktur Unit
+                        <span className="hidden sm:inline">Struktur</span> Unit
                     </button>
                     <button
                         onClick={() => setViewMode("CLUSTER")}
-                        className={`flex-1 flex items-center justify-center gap-2 py-3 rounded-full font-bold text-sm transition-all ${viewMode === "CLUSTER" ? "bg-brand-orange text-white shadow-md" : "text-slate-500 hover:bg-slate-100"}`}
+                        className={`flex-1 flex items-center justify-center gap-2 py-3 rounded-full font-bold text-sm transition-all duration-300 relative z-10 ${viewMode === "CLUSTER" ? "bg-orange-500 text-white shadow-lg scale-105" : "text-slate-500 hover:bg-slate-50 hover:text-orange-500"}`}
                     >
                         <Layers className="w-4 h-4" />
                         Kluster
                     </button>
                     <button
                         onClick={() => setViewMode("SUBUNIT")}
-                        className={`flex-1 flex items-center justify-center gap-2 py-3 rounded-full font-bold text-sm transition-all ${viewMode === "SUBUNIT" ? "bg-brand-green text-white shadow-md" : "text-slate-500 hover:bg-slate-100"}`}
+                        className={`flex-1 flex items-center justify-center gap-2 py-3 rounded-full font-bold text-sm transition-all duration-300 relative z-10 ${viewMode === "SUBUNIT" ? "bg-brand-green text-white shadow-lg scale-105" : "text-slate-500 hover:bg-slate-50 hover:text-brand-green"}`}
                     >
                         <MapPin className="w-4 h-4" />
-                        Sub Unit (Dusun)
+                        Sub Unit <span className="hidden sm:inline">(Dusun)</span>
                     </button>
                 </div>
-                <p className="text-center mt-3 text-slate-400 text-xs font-medium uppercase tracking-widest">
-                    {viewMode === "UNIT" && "Menampilkan Struktur Organisasi Unit & Divisi"}
-                    {viewMode === "CLUSTER" && "Menampilkan Pembagian Berdasarkan Bidang Ilmu"}
-                    {viewMode === "SUBUNIT" && "Menampilkan Pembagian Lokasi Tempat Tinggal"}
+                <p className="text-center mt-4 text-slate-400 text-xs font-bold uppercase tracking-widest bg-white/50 inline-block px-4 py-1 rounded-full backdrop-blur-sm mx-auto left-0 right-0 w-fit">
+                    {viewMode === "UNIT" && "Struktur Organisasi Unit & Divisi"}
+                    {viewMode === "CLUSTER" && "Pembagian Berdasarkan Bidang Ilmu"}
+                    {viewMode === "SUBUNIT" && "Pembagian Lokasi Tempat Tinggal"}
                 </p>
             </div>
 
             {/* CONTENT AREA */}
-            <div className="container mx-auto px-6 min-h-[50vh]">
+            <div className="container mx-auto px-6 min-h-[50vh] relative">
+                {/* Background Decorations for Content */}
+                <div className="absolute top-20 left-0 w-full h-full pointer-events-none overflow-hidden -z-10">
+                    <motion.div
+                        animate={{ y: [0, -20, 0] }}
+                        transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
+                        className="absolute top-0 left-10 opacity-10"
+                    >
+                        <Image src="/ornaments/or1.png" width={150} height={150} alt="decoration" />
+                    </motion.div>
+                    <motion.div
+                        animate={{ rotate: 360 }}
+                        transition={{ duration: 30, repeat: Infinity, ease: "linear" }}
+                        className="absolute top-1/3 right-10 opacity-10"
+                    >
+                        <Image src="/ornaments/or3.png" width={200} height={200} alt="decoration" />
+                    </motion.div>
+                    <motion.div
+                        animate={{ scale: [1, 1.1, 1] }}
+                        transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
+                        className="absolute bottom-40 left-10 opacity-10"
+                    >
+                        <Image src="/ornaments/or2.png" width={250} height={250} alt="decoration" />
+                    </motion.div>
+                    <motion.div
+                        animate={{ rotate: -360 }}
+                        transition={{ duration: 40, repeat: Infinity, ease: "linear" }}
+                        className="absolute bottom-20 right-10 opacity-10"
+                    >
+                        <Image src="/ornaments/or4.png" width={180} height={180} alt="decoration" />
+                    </motion.div>
+                </div>
 
                 {/* VIEW: UNIT STRUCTURE */}
                 {viewMode === "UNIT" && (
