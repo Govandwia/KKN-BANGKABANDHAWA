@@ -160,7 +160,7 @@ export default function SponsorshipPage() {
                     className="relative rounded-[3rem] overflow-hidden bg-gradient-to-br from-brand-yellow to-orange-400 shadow-2xl shadow-orange-500/30"
                 >
                     {/* Background Pattern */}
-                    <div className="absolute inset-0 opacity-20" style={{ backgroundImage: `url("/ornaments/pattern-geometric.png")`, backgroundSize: '200px' }}></div>
+                    <div className="absolute inset-0 opacity-20" style={{ backgroundImage: `url("/ornaments/or3.png")`, backgroundSize: '150px', backgroundRepeat: 'repeat' }}></div>
 
                     <div className="relative z-10 px-8 py-20 md:px-20 text-center">
                         <motion.div

@@ -2,7 +2,9 @@
 
 import { motion } from "framer-motion";
 import { MEMBERS, Member } from "@/data/members";
-import { Layers, Users, MapPin, User, Star } from "lucide-react"; // Added Star icon for Kadiv
+import { MemberCard } from "@/components/MemberCard";
+import { SnowfallBackground } from "@/components/SnowfallBackground";
+import { Layers, Users, MapPin } from "lucide-react";
 import { useState } from "react";
 import Image from "next/image";
 
@@ -11,7 +13,7 @@ type ViewMode = "UNIT" | "CLUSTER" | "SUBUNIT";
 
 // Helper Data
 const CORE_ROLES = ["Kormanit", "Finance", "Sekre 1", "Sekre 2"];
-const DIVISIONS = ["HUMPUM", "DDD", "LOKO", "SPONSORSHIP"];
+const DIVISIONS = ["HUMPUB", "DDD", "LOKO", "SPONSORSHIP"];
 const CLUSTERS = ["Saintek", "Soshum", "Agro", "Medika"];
 const DUSUNS = ["Dusun 1", "Dusun 2", "Dusun 3", "Dusun 4", "Dusun 5"];
 
@@ -47,68 +49,9 @@ export default function MembersPage() {
                             initial={{ opacity: 0, scale: 0.9 }}
                             animate={{ opacity: 1, scale: 1 }}
                             transition={{ delay: idx * 0.05 }}
-                            className="group relative"
+                            className="group relative h-full"
                         >
-                            <div className={`bg-white p-4 rounded-xl shadow-sm hover:shadow-xl transition-all duration-300 border border-slate-100 hover:-translate-y-1 relative overflow-hidden ${member.role === 'Kadiv' ? 'ring-2 ring-brand-yellow/50' : ''}`}>
-                                {/* Card Pattern Watermark */}
-                                <div className="absolute -right-4 -bottom-4 opacity-[0.03] pointer-events-none transition-transform group-hover:scale-110 group-hover:rotate-12">
-                                    <Image src="/ornaments/or1.png" width={120} height={120} alt="pattern" />
-                                </div>
-                                <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-brand-blue/20 to-brand-green/20"></div>
-
-                                <div className="aspect-square bg-slate-100 rounded-lg mb-4 overflow-hidden relative z-10">
-                                    <div className="absolute inset-0 flex items-center justify-center text-slate-300">
-                                        <User className="w-16 h-16" />
-                                    </div>
-
-                                    {/* Division/Role Badges */}
-                                    <div className="absolute top-2 right-2 flex flex-col gap-1 items-end">
-                                        {/* Show Star for Kadiv */}
-                                        {member.role === 'Kadiv' && (
-                                            <span className="bg-brand-yellow text-white text-[10px] font-bold px-2 py-1 rounded-full shadow-sm flex items-center gap-1">
-                                                <Star className="w-3 h-3 fill-white" /> Kadiv
-                                            </span>
-                                        )}
-                                        {/* Show Core Role badges */}
-                                        {CORE_ROLES.includes(member.role) && (
-                                            <span className="bg-brand-blue text-white text-[10px] font-bold px-2 py-1 rounded-full shadow-sm">
-                                                {member.role}
-                                            </span>
-                                        )}
-                                    </div>
-                                </div>
-
-                                <h3 className="font-bold text-brand-text leading-tight mb-1 relative z-10 text-balance">{member.name}</h3>
-
-                                {/* Dynamic Subtext based on View */}
-                                <div className="relative z-10">
-                                    {viewMode === 'UNIT' && (
-                                        <>
-                                            {member.role === 'Kadiv' || member.role === 'Anggota' ? (
-                                                <p className="text-slate-400 text-xs mb-1">Divisi {member.division}</p>
-                                            ) : (
-                                                <p className="text-brand-blue font-bold text-sm mb-1">{member.role}</p>
-                                            )}
-                                        </>
-                                    )}
-                                    {viewMode === 'CLUSTER' && (
-                                        <p className="text-slate-500 text-xs mb-1">{member.major}</p>
-                                    )}
-                                    {viewMode === 'SUBUNIT' && (
-                                        <p className="text-slate-500 text-xs mb-1">{member.cluster} • {member.major}</p>
-                                    )}
-                                </div>
-
-                                {/* Always show the 'other' context info in small text */}
-                                <div className="mt-2 pt-2 border-t border-slate-100 flex flex-wrap gap-1 relative z-10">
-                                    {viewMode !== 'CLUSTER' && (
-                                        <span className="text-[10px] bg-blue-50 text-blue-600 px-2 py-0.5 rounded">{member.cluster}</span>
-                                    )}
-                                    {viewMode !== 'SUBUNIT' && (
-                                        <span className="text-[10px] bg-green-50 text-green-600 px-2 py-0.5 rounded">{member.dusun}</span>
-                                    )}
-                                </div>
-                            </div>
+                            <MemberCard member={member} viewMode={viewMode} />
                         </motion.div>
                     ))}
                 </div>
@@ -117,7 +60,8 @@ export default function MembersPage() {
     };
 
     return (
-        <main className="min-h-screen bg-[#FDF6E3] pb-32">
+        <main className="min-h-screen bg-[#FDF6E3] pb-32 relative">
+            <SnowfallBackground />
 
             {/* HERO */}
             <div className="bg-brand-green pt-32 pb-24 rounded-b-[3rem] relative overflow-hidden mb-12 shadow-xl">
@@ -231,7 +175,7 @@ export default function MembersPage() {
 
                             // Color coding divisions roughly
                             let color = "text-slate-700";
-                            if (division === "HUMPUM") color = "text-pink-600";
+                            if (division === "HUMPUB") color = "text-pink-600";
                             if (division === "DDD") color = "text-purple-600";
                             if (division === "LOKO") color = "text-amber-600";
                             if (division === "SPONSORSHIP") color = "text-emerald-600";

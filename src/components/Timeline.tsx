@@ -56,7 +56,7 @@ const TIMELINE_STEPS = [
 
 export function Timeline() {
     return (
-        <section className="w-full py-24 bg-white relative overflow-hidden">
+        <section className="w-full py-24 bg-yellow-50 relative overflow-hidden">
             {/* Background Pattern */}
             <div className="absolute top-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-slate-200 to-transparent" />
 
@@ -78,7 +78,7 @@ export function Timeline() {
                                 whileInView={{ opacity: 1, y: 0 }}
                                 viewport={{ once: true, margin: "-50px" }}
                                 transition={{ duration: 0.5, delay: idx * 0.1 }}
-                                className={`relative flex flex-col md:flex-row gap-8 items-start ${idx % 2 === 0 ? 'md:flex-row-reverse' : ''}`}
+                                className={`relative flex flex-col md:flex-row gap-8 items-start ${idx % 2 !== 0 ? 'md:flex-row-reverse' : ''}`}
                             >
                                 {/* Center Icon */}
                                 <div className="absolute left-4 md:left-1/2 -translate-x-1/2 w-8 h-8 rounded-full bg-white border-4 border-white shadow-sm z-10 flex items-center justify-center">
@@ -86,13 +86,13 @@ export function Timeline() {
                                 </div>
 
                                 {/* Content Card */}
-                                <div className="ml-12 md:ml-0 md:w-1/2 flex justify-center w-full">
+                                <div className="ml-12 md:ml-0 md:w-1/2 flex justify-center w-[calc(100%-3rem)]">
                                     {/* Wrapper to align properly based on odd/even */}
-                                    <div className={`w-full ${idx % 2 === 0 ? 'md:pl-12 text-left' : 'md:pr-12 md:text-right'}`}>
+                                    <div className={`w-full ${idx % 2 !== 0 ? 'md:pl-12 text-left' : 'md:pr-12 md:text-right'}`}>
 
                                         <div className={`
                                             group p-6 rounded-2xl border border-slate-100 shadow-sm hover:shadow-lg transition-all duration-300 bg-white relative overflow-hidden
-                                            ${idx % 2 === 0 ? 'rounded-tl-none' : 'rounded-tr-none'}
+                                            ${idx % 2 !== 0 ? 'rounded-tl-none' : 'rounded-tr-none'}
                                         `}>
                                             <div className="absolute top-0 right-0 p-3 opacity-10 group-hover:opacity-20 transition-opacity">
                                                 <step.icon className="w-16 h-16" />

@@ -53,9 +53,9 @@ export default function GalleryPage() {
                         <button
                             key={cat}
                             onClick={() => setActiveCategory(cat)}
-                            className={`px-6 py-2 rounded-full font-bold text-sm transition-all duration-300 transform hover:scale-105 ${activeCategory === cat
-                                ? "bg-brand-orange text-white shadow-lg scale-105"
-                                : "bg-[#FDF6E3] text-brand-text/70 hover:bg-white hover:shadow-md"
+                            className={`px-6 py-2 rounded-full font-bold text-sm transition-all duration-300 transform hover:scale-105 border-2 ${activeCategory === cat
+                                ? "bg-brand-green border-brand-green text-white shadow-lg"
+                                : "bg-white border-white text-slate-700 hover:border-brand-green/30 hover:text-brand-green shadow-sm"
                                 }`}
                         >
                             {cat}
@@ -111,8 +111,15 @@ export default function GalleryPage() {
                     )}
                 </div>
 
-                {/* Background Pattern Overlay for the section */}
-                <div className="absolute inset-0 z-[-1] opacity-5 pointer-events-none" style={{ backgroundImage: `url('/ornaments/pattern-geometric.png')`, backgroundRepeat: 'repeat' }}></div>
+                {/* Background Pattern Overlay for the section - SINGLE PATTERN (or2.png) */}
+                <div
+                    className="absolute inset-0 z-[-1] opacity-[0.05] pointer-events-none"
+                    style={{
+                        backgroundImage: `url('/ornaments/or2.png')`,
+                        backgroundRepeat: 'repeat',
+                        backgroundSize: '120px'
+                    }}
+                ></div>
 
             </div>
         </main>

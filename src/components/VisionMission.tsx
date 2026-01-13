@@ -5,11 +5,10 @@ import Image from "next/image";
 
 export function VisionMission() {
     return (
-        <section className="relative py-24 overflow-hidden bg-slate-50" id="visi-misi">
-            {/* Background Ornament - Left */}
+        <section className="relative py-24 bg-blue-50" id="visi-misi">
             {/* Background Ornament - Left */}
             <motion.div
-                className="absolute top-0 left-0 w-64 h-64 -translate-x-1/3 -translate-y-1/3 opacity-10 pointer-events-none"
+                className="absolute top-0 left-0 -translate-x-1/3 -translate-y-1/3 opacity-10 pointer-events-none z-10"
                 animate={{ rotate: 360 }}
                 transition={{ duration: 50, repeat: Infinity, ease: "linear" }}
             >
@@ -18,13 +17,13 @@ export function VisionMission() {
                     alt="Decoration"
                     width={400}
                     height={400}
-                    className="w-full h-full object-contain"
+                    className="w-48 h-48 md:w-[400px] md:h-[400px] object-contain"
                 />
             </motion.div>
 
             {/* Background Ornament - Right */}
             <motion.div
-                className="absolute bottom-0 right-0 w-96 h-96 translate-x-1/4 translate-y-1/4 opacity-5 pointer-events-none"
+                className="absolute bottom-0 right-0 translate-x-1/4 translate-y-1/4 opacity-5 pointer-events-none z-10"
                 animate={{ rotate: -360 }}
                 transition={{ duration: 60, repeat: Infinity, ease: "linear" }}
             >
@@ -33,11 +32,11 @@ export function VisionMission() {
                     alt="Decoration"
                     width={500}
                     height={500}
-                    className="w-full h-full object-contain"
+                    className="w-56 h-56 md:w-[500px] md:h-[500px] object-contain"
                 />
             </motion.div>
 
-            <div className="w-full px-4 md:px-12 lg:px-20 relative z-10">
+            <div className="w-full px-4 md:px-12 lg:px-20 relative z-20">
 
                 {/* Header */}
                 <div className="text-center mb-16">

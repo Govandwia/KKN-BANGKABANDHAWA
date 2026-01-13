@@ -1,8 +1,9 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
 import { Users, MapPin, Calendar } from "lucide-react";
+import { useState, useEffect } from "react";
 
 const STATS = [
     { label: "Hari Pengabdian", value: "50", icon: Calendar },
@@ -10,9 +11,26 @@ const STATS = [
     { label: "Anggota Tim", value: "30", icon: Users },
 ];
 
+const ABOUT_IMAGES = [
+    "/photo/IMG_1516.jpg",
+    "/photo/IMG_0820.jpg",
+    "/photo/IMG_0889.jpg",
+    "/photo/IMG_1094.jpg",
+    "/photo/IMG_1158.jpg"
+];
+
 export function About() {
+    const [currentImage, setCurrentImage] = useState(0);
+
+    useEffect(() => {
+        const timer = setInterval(() => {
+            setCurrentImage((prev) => (prev + 1) % ABOUT_IMAGES.length);
+        }, 4000);
+        return () => clearInterval(timer);
+    }, []);
+
     return (
-        <section className="relative py-24 bg-white overflow-hidden" id="tentang">
+        <section className="relative py-24 bg-white" id="tentang">
             {/* Background Ornament - Rotating Blue */}
             <motion.div
                 className="absolute -left-20 top-20 opacity-5 pointer-events-none select-none z-0"
@@ -24,10 +42,11 @@ export function About() {
                     alt="Decoration"
                     width={500}
                     height={500}
+                    className="w-64 h-64 md:w-[500px] md:h-[500px]"
                 />
             </motion.div>
 
-            <div className="w-full px-4 md:px-8 relative z-10">
+            <div className="w-full px-4 md:px-8 relative z-20">
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center">
 
                     {/* Text Content */}
@@ -54,16 +73,34 @@ export function About() {
                         </p>
 
                         {/* Stats Grid */}
-                        <div className="grid grid-cols-3 gap-4">
-                            {STATS.map((stat, idx) => (
-                                <div key={idx} className="p-4 rounded-2xl bg-slate-50 border border-slate-100 text-center hover:shadow-md transition-shadow">
-                                    <div className="mx-auto w-10 h-10 mb-3 rounded-full bg-brand-blue/10 flex items-center justify-center text-brand-blue">
-                                        <stat.icon className="w-5 h-5" />
-                                    </div>
-                                    <h3 className="text-2xl font-bold text-brand-text">{stat.value}</h3>
-                                    <p className="text-xs text-slate-500 font-medium">{stat.label}</p>
+                        {/* Stats Grid - Enhanced */}
+                        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-12">
+                            {/* Card 1: Hari - Blue */}
+                            <div className="p-6 rounded-3xl bg-blue-50 border-4 border-dashed border-blue-200 text-center hover:shadow-lg transition-all duration-300 hover:-translate-y-1 group">
+                                <div className="mx-auto w-14 h-14 mb-4 rounded-2xl bg-white shadow-sm flex items-center justify-center text-blue-500 group-hover:scale-110 transition-transform">
+                                    <Calendar className="w-7 h-7" />
                                 </div>
-                            ))}
+                                <h3 className="text-4xl font-black text-slate-800 mb-1">50</h3>
+                                <p className="text-sm text-blue-600 font-bold uppercase tracking-wider">Hari Pengabdian</p>
+                            </div>
+
+                            {/* Card 2: Desa - Green */}
+                            <div className="p-6 rounded-3xl bg-green-50 border-4 border-dashed border-green-200 text-center hover:shadow-lg transition-all duration-300 hover:-translate-y-1 group">
+                                <div className="mx-auto w-14 h-14 mb-4 rounded-2xl bg-white shadow-sm flex items-center justify-center text-green-500 group-hover:scale-110 transition-transform">
+                                    <MapPin className="w-7 h-7" />
+                                </div>
+                                <h3 className="text-4xl font-black text-slate-800 mb-1">2</h3>
+                                <p className="text-sm text-green-600 font-bold uppercase tracking-wider">Desa Mitra</p>
+                            </div>
+
+                            {/* Card 3: Anggota - Yellow */}
+                            <div className="p-6 rounded-3xl bg-yellow-50 border-4 border-dashed border-yellow-200 text-center hover:shadow-lg transition-all duration-300 hover:-translate-y-1 group">
+                                <div className="mx-auto w-14 h-14 mb-4 rounded-2xl bg-white shadow-sm flex items-center justify-center text-yellow-600 group-hover:scale-110 transition-transform">
+                                    <Users className="w-7 h-7" />
+                                </div>
+                                <h3 className="text-4xl font-black text-slate-800 mb-1">30</h3>
+                                <p className="text-sm text-yellow-700 font-bold uppercase tracking-wider">Anggota Tim</p>
+                            </div>
                         </div>
                     </motion.div>
 
@@ -77,13 +114,25 @@ export function About() {
                     >
                         <div className="relative aspect-square rounded-[3rem] overflow-hidden border-2 border-dashed border-brand-blue/30 p-4 bg-white rotate-3 hover:rotate-0 transition-transform duration-500">
                             {/* Inner image frame */}
-                            <div className="relative w-full h-full rounded-[2.5rem] overflow-hidden shadow-2xl">
-                                <Image
-                                    src="/photo/IMG_0910.jpg"
-                                    alt="Foto Bersama Tim KKN Bangka Bandhawa"
-                                    fill
-                                    className="object-cover hover:scale-105 transition-transform duration-700"
-                                />
+                            <div className="relative w-full h-full rounded-[2.5rem] overflow-hidden shadow-2xl bg-slate-100">
+                                <AnimatePresence>
+                                    <motion.div
+                                        key={currentImage}
+                                        initial={{ opacity: 0 }}
+                                        animate={{ opacity: 1 }}
+                                        exit={{ opacity: 0 }}
+                                        transition={{ duration: 1 }}
+                                        className="absolute inset-0"
+                                    >
+                                        <Image
+                                            src={ABOUT_IMAGES[currentImage]}
+                                            alt="Foto Bersama Tim KKN Bangka Bandhawa"
+                                            fill
+                                            className="object-cover"
+                                            priority
+                                        />
+                                    </motion.div>
+                                </AnimatePresence>
                                 {/* Overlay Gradient for text readability if needed, but clean is better here */}
                             </div>
                         </div>

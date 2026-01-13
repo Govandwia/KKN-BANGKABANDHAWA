@@ -3,7 +3,7 @@ export interface Member {
     name: string;
     // Role is now more generic for division members, but specific for core leaders
     role: "Kormanit" | "Finance" | "Sekre 1" | "Sekre 2" | "Kadiv" | "Anggota";
-    division?: "HUMPUM" | "DDD" | "LOKO" | "SPONSORSHIP"; // Optional, only for division members
+    division?: "HUMPUB" | "DDD" | "LOKO" | "SPONSORSHIP"; // Optional, only for division members
     faculty: string;
     major: string;
     image: string;
@@ -11,23 +11,24 @@ export interface Member {
     dusun: "Dusun 1" | "Dusun 2" | "Dusun 3" | "Dusun 4" | "Dusun 5";
     instagram?: string;
     linkedin?: string;
+    motto?: string;
 }
 
 export const MEMBERS: Member[] = [
     // --- CORE LEADERS (Pengurus Inti) ---
-    { id: "1", name: "Nama Kormanit", role: "Kormanit", faculty: "Teknik", major: "Teknik Sipil", image: "", cluster: "Saintek", dusun: "Dusun 1" },
-    { id: "2", name: "Nama Finance", role: "Finance", faculty: "Ekonomika & Bisnis", major: "Akuntansi", image: "", cluster: "Soshum", dusun: "Dusun 1" },
-    { id: "3", name: "Nama Sekre 1", role: "Sekre 1", faculty: "Ilmu Budaya", major: "Sastra Inggris", image: "", cluster: "Soshum", dusun: "Dusun 2" },
-    { id: "4", name: "Nama Sekre 2", role: "Sekre 2", faculty: "MIPA", major: "Statistika", image: "", cluster: "Saintek", dusun: "Dusun 2" },
+    { id: "1", name: "Nama Kormanit", role: "Kormanit", faculty: "Teknik", major: "Teknik Sipil", image: "", cluster: "Saintek", dusun: "Dusun 1", motto: "Memimpin dengan hati, melayani dengan aksi." },
+    { id: "2", name: "Nama Finance", role: "Finance", faculty: "Ekonomika & Bisnis", major: "Akuntansi", image: "", cluster: "Soshum", dusun: "Dusun 1", motto: "Transparansi adalah kunci integritas." },
+    { id: "3", name: "Nama Sekre 1", role: "Sekre 1", faculty: "Ilmu Budaya", major: "Sastra Inggris", image: "", cluster: "Soshum", dusun: "Dusun 2", motto: "Tertib administrasi, lancar kontribusi." },
+    { id: "4", name: "Nama Sekre 2", role: "Sekre 2", faculty: "MIPA", major: "Statistika", image: "", cluster: "Saintek", dusun: "Dusun 2", motto: "Data akurat, keputusan tepat." },
 
-    // --- DIVISI HUMPUM ---
-    { id: "5", name: "Kadiv HUMPUM", role: "Kadiv", division: "HUMPUM", faculty: "ISIPOL", major: "Komunikasi", image: "", cluster: "Soshum", dusun: "Dusun 3" },
-    { id: "6", name: "Anggota HUMPUM 1", role: "Anggota", division: "HUMPUM", faculty: "ISIPOL", major: "Sosiologi", image: "", cluster: "Soshum", dusun: "Dusun 3" },
-    { id: "7", name: "Anggota HUMPUM 2", role: "Anggota", division: "HUMPUM", faculty: "Filsafat", major: "Filsafat", image: "", cluster: "Soshum", dusun: "Dusun 3" },
-    { id: "8", name: "Anggota HUMPUM 3", role: "Anggota", division: "HUMPUM", faculty: "Hukum", major: "Hukum", image: "", cluster: "Soshum", dusun: "Dusun 3" },
+    // --- DIVISI HUMPUB ---
+    { id: "5", name: "Kadiv HUMPUB", role: "Kadiv", division: "HUMPUB", faculty: "ISIPOL", major: "Komunikasi", image: "", cluster: "Soshum", dusun: "Dusun 3", motto: "Menyambung rasa, merajut asa." },
+    { id: "6", name: "Anggota HUMPUB 1", role: "Anggota", division: "HUMPUB", faculty: "ISIPOL", major: "Sosiologi", image: "", cluster: "Soshum", dusun: "Dusun 3" },
+    { id: "7", name: "Anggota HUMPUB 2", role: "Anggota", division: "HUMPUB", faculty: "Filsafat", major: "Filsafat", image: "", cluster: "Soshum", dusun: "Dusun 3" },
+    { id: "8", name: "Anggota HUMPUB 3", role: "Anggota", division: "HUMPUB", faculty: "Hukum", major: "Hukum", image: "", cluster: "Soshum", dusun: "Dusun 3" },
 
     // --- DIVISI DDD (Dokumentasi Desain Dekorasi) ---
-    { id: "9", name: "Kadiv DDD", role: "Kadiv", division: "DDD", faculty: "Teknik", major: "Arsitektur", image: "", cluster: "Saintek", dusun: "Dusun 4" },
+    { id: "9", name: "Kadiv DDD", role: "Kadiv", division: "DDD", faculty: "Teknik", major: "Arsitektur", image: "", cluster: "Saintek", dusun: "Dusun 4", motto: "Visualisasikan mimpi, abadikan momen." },
     { id: "10", name: "Anggota DDD 1", role: "Anggota", division: "DDD", faculty: "Teknik", major: "PWK", image: "", cluster: "Saintek", dusun: "Dusun 4" },
     { id: "11", name: "Anggota DDD 2", role: "Anggota", division: "DDD", faculty: "MIPA", major: "Ilmu Komputer", image: "", cluster: "Saintek", dusun: "Dusun 4" },
     { id: "12", name: "Anggota DDD 3", role: "Anggota", division: "DDD", faculty: "Vokasi", major: "D4 Teknologi Rekayasa", image: "", cluster: "Saintek", dusun: "Dusun 4" },
@@ -50,8 +51,8 @@ export const MEMBERS: Member[] = [
     // OR I will assume the user implies EVERYONE is in a division. 
     // Let's distribute the Medika/Agro people into these divisions for completeness.
 
-    { id: "20", name: "Anggota Medika 1", role: "Anggota", division: "HUMPUM", faculty: "Kedokteran", major: "Pendidikan Dokter", image: "", cluster: "Medika", dusun: "Dusun 2" },
-    { id: "21", name: "Anggota Medika 2", role: "Anggota", division: "HUMPUM", faculty: "Farmasi", major: "Farmasi", image: "", cluster: "Medika", dusun: "Dusun 2" },
+    { id: "20", name: "Anggota Medika 1", role: "Anggota", division: "HUMPUB", faculty: "Kedokteran", major: "Pendidikan Dokter", image: "", cluster: "Medika", dusun: "Dusun 2" },
+    { id: "21", name: "Anggota Medika 2", role: "Anggota", division: "HUMPUB", faculty: "Farmasi", major: "Farmasi", image: "", cluster: "Medika", dusun: "Dusun 2" },
     { id: "22", name: "Anggota Medika 3", role: "Anggota", division: "DDD", faculty: "Kedokteran Gigi", major: "Kedokteran Gigi", image: "", cluster: "Medika", dusun: "Dusun 2" },
     { id: "23", name: "Anggota Medika 4", role: "Anggota", division: "DDD", faculty: "Kedokteran Hewan", major: "Kedokteran Hewan", image: "", cluster: "Medika", dusun: "Dusun 5" },
     { id: "24", name: "Anggota Medika 5", role: "Anggota", division: "SPONSORSHIP", faculty: "Kedokteran", major: "Gizi Kesehatan", image: "", cluster: "Medika", dusun: "Dusun 5" },
@@ -62,6 +63,6 @@ export const MEMBERS: Member[] = [
 
     // Remaining fillers
     { id: "28", name: "Anggota Extra 1", role: "Anggota", division: "DDD", faculty: "MIPA", major: "Matematika", image: "", cluster: "Saintek", dusun: "Dusun 1" },
-    { id: "29", name: "Anggota Extra 2", role: "Anggota", division: "HUMPUM", faculty: "Psikologi", major: "Psikologi", image: "", cluster: "Soshum", dusun: "Dusun 2" },
+    { id: "29", name: "Anggota Extra 2", role: "Anggota", division: "HUMPUB", faculty: "Psikologi", major: "Psikologi", image: "", cluster: "Soshum", dusun: "Dusun 2" },
     { id: "30", name: "Anggota Extra 3", role: "Anggota", division: "LOKO", faculty: "Teknik", major: "Teknik Kimia", image: "", cluster: "Saintek", dusun: "Dusun 3" },
 ];

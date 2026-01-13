@@ -6,9 +6,9 @@ import { ArrowRight } from "lucide-react";
 
 export function Hero() {
     return (
-        <section className="relative min-h-screen w-full flex items-center justify-center overflow-hidden bg-brand-bg pt-20">
+        <section className="relative min-h-screen w-full flex items-center justify-center bg-brand-bg pt-20">
             {/* Video Background */}
-            <div className="absolute inset-0 z-0">
+            <div className="absolute inset-0 z-0 overflow-hidden">
                 <div className="absolute inset-0 bg-black/60 z-10" /> {/* Dark Overlay for readability */}
                 <video
                     autoPlay
@@ -21,9 +21,9 @@ export function Hero() {
                 </video>
             </div>
 
-            {/* Ornaments (Watermarks) - Above video, below content */}
+            {/* Ornaments - Responsive Sizing & Allow Overflow */}
             <motion.div
-                className="absolute top-10 right-10 opacity-20 pointer-events-none select-none z-10"
+                className="absolute top-5 -right-10 md:right-10 opacity-20 pointer-events-none select-none z-10"
                 animate={{ rotate: 360 }}
                 transition={{ duration: 50, repeat: Infinity, ease: "linear" }}
             >
@@ -32,10 +32,11 @@ export function Hero() {
                     alt="Decoration"
                     width={250}
                     height={250}
+                    className="w-32 h-32 md:w-64 md:h-64"
                 />
             </motion.div>
             <motion.div
-                className="absolute bottom-20 left-10 opacity-20 pointer-events-none select-none z-10"
+                className="absolute -bottom-10 -left-10 md:bottom-20 md:left-10 opacity-20 pointer-events-none select-none z-10"
                 animate={{ rotate: -360 }}
                 transition={{ duration: 60, repeat: Infinity, ease: "linear" }}
             >
@@ -44,6 +45,7 @@ export function Hero() {
                     alt="Decoration"
                     width={300}
                     height={300}
+                    className="w-40 h-40 md:w-80 md:h-80"
                 />
             </motion.div>
 

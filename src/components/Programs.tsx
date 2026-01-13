@@ -10,27 +10,39 @@ export function Programs() {
     const [activeCluster, setActiveCluster] = useState(PROGRAM_CLUSTERS[0]);
 
     return (
-        <section className="relative py-24 bg-slate-50 overflow-hidden" id="program">
+        <section className="relative py-24 bg-green-50" id="program">
 
             {/* Background Ornament - Green (Top Left) */}
             <motion.div
-                className="absolute -left-24 -top-24 opacity-10 pointer-events-none select-none"
+                className="absolute -left-10 -top-10 md:-left-24 md:-top-24 opacity-10 pointer-events-none select-none z-10"
                 animate={{ rotate: 360 }}
                 transition={{ duration: 120, repeat: Infinity, ease: "linear" }}
             >
-                <Image src="/ornaments/or2.png" alt="Decoration" width={500} height={500} />
+                <Image
+                    src="/ornaments/or2.png"
+                    alt="Decoration"
+                    width={500}
+                    height={500}
+                    className="w-40 h-40 md:w-[500px] md:h-[500px]"
+                />
             </motion.div>
 
             {/* Background Ornament - Yellow (Bottom Right) */}
             <motion.div
-                className="absolute -right-24 -bottom-24 opacity-10 pointer-events-none select-none"
+                className="absolute -right-10 -bottom-10 md:-right-24 md:-bottom-24 opacity-10 pointer-events-none select-none z-10"
                 animate={{ rotate: -360 }}
                 transition={{ duration: 100, repeat: Infinity, ease: "linear" }}
             >
-                <Image src="/ornaments/or4.png" alt="Decoration" width={500} height={500} />
+                <Image
+                    src="/ornaments/or4.png"
+                    alt="Decoration"
+                    width={500}
+                    height={500}
+                    className="w-40 h-40 md:w-[500px] md:h-[500px]"
+                />
             </motion.div>
 
-            <div className="w-full max-w-7xl lg:max-w-[90%] mx-auto px-4 md:px-8 relative z-10">
+            <div className="w-full max-w-7xl lg:max-w-[90%] mx-auto px-4 md:px-8 relative z-20">
 
                 {/* Header */}
                 <div className="text-center mb-12 max-w-3xl mx-auto">
@@ -88,14 +100,19 @@ export function Programs() {
                                 : "text-slate-500 hover:text-slate-700 bg-white/50 hover:bg-white"
                                 }`}
                         >
-                            <cluster.icon className={`w-4 h-4 ${activeCluster.id === cluster.id ? cluster.textColor : "text-slate-400 group-hover:text-slate-600"}`} />
-                            <span>{cluster.name}</span>
                             {activeCluster.id === cluster.id && (
                                 <motion.div
-                                    layoutId="activeTabIndicator"
-                                    className={`absolute inset-0 rounded-full bg-current opacity-5 pointer-events-none`}
+                                    initial={{ opacity: 0, scale: 0.9 }}
+                                    animate={{ opacity: 0.1, scale: 1 }}
+                                    exit={{ opacity: 0, scale: 0.9 }}
+                                    transition={{ duration: 0.2 }}
+                                    className={`absolute inset-0 rounded-full bg-current pointer-events-none`}
                                 />
                             )}
+                            <span className="relative z-10 flex items-center gap-2">
+                                <cluster.icon className={`w-4 h-4 ${activeCluster.id === cluster.id ? cluster.textColor : "text-slate-400 group-hover:text-slate-600"}`} />
+                                <span>{cluster.name}</span>
+                            </span>
                         </button>
                     ))}
                 </div>
@@ -110,7 +127,7 @@ export function Programs() {
                         transition={{ duration: 0.3 }}
                         className="max-w-4xl mx-auto"
                     >
-                        <div className={`p-8 md:p-14 rounded-[2.5rem] bg-white border border-slate-100 shadow-xl shadow-slate-200/50 relative overflow-hidden group hover:shadow-2xl transition-all duration-500`}>
+                        <div className={`p-8 md:p-14 rounded-[2.5rem] bg-white border-2 border-dashed ${activeCluster.borderColor} shadow-xl shadow-slate-200/50 relative overflow-hidden group hover:shadow-2xl transition-all duration-500`}>
                             {/* Dynamic Background */}
                             <div className={`absolute top-0 right-0 w-64 h-64 ${activeCluster.themeColor} rounded-full blur-3xl -mr-20 -mt-20 opacity-60 group-hover:scale-110 transition-transform duration-700`} />
                             <div className={`absolute bottom-0 left-0 w-64 h-64 ${activeCluster.themeColor} rounded-full blur-3xl -ml-20 -mb-20 opacity-60 group-hover:scale-110 transition-transform duration-700`} />

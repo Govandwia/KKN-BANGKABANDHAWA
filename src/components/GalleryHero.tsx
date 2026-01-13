@@ -3,6 +3,7 @@
 import { motion, useScroll, useTransform } from "framer-motion";
 import { useRef } from "react";
 import Image from "next/image";
+import { ALL_PHOTOS } from "@/data/gallery";
 
 // EXTENDED 3D SCENE: Images + Ornaments distributed deep into Z space
 const HERO_OBJECTS = [
@@ -120,9 +121,13 @@ export function GalleryHero() {
                                         <div className="absolute -top-3 left-1/2 -translate-x-1/2 w-24 h-8 bg-white/40 rotate-1 backdrop-blur-sm shadow-sm z-30 transform -skew-x-12 opacity-80" />
 
                                         <div className={`w-full h-full relative overflow-hidden ${obj.color} flex items-center justify-center`}>
-                                            <div className="text-slate-400/50 font-bold text-lg">
-                                                [IMG {obj.id}]
-                                            </div>
+                                            <Image
+                                                src={ALL_PHOTOS[typeof obj.id === 'number' ? (Math.abs(obj.id) % ALL_PHOTOS.length) : 0].src}
+                                                alt="Gallery Photo"
+                                                fill
+                                                className="object-cover"
+                                                sizes="(max-width: 768px) 300px, 400px"
+                                            />
                                         </div>
                                     </div>
                                 ) : (

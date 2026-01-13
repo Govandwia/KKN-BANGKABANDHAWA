@@ -34,7 +34,7 @@ export function Location() {
     };
 
     return (
-        <section className="relative py-24 bg-white overflow-hidden" id="lokasi">
+        <section className="relative py-24 bg-red-50" id="lokasi">
             <div className="w-full px-4 md:px-12 lg:px-20">
 
                 {/* Header */}

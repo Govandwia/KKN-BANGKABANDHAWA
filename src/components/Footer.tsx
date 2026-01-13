@@ -1,13 +1,13 @@
 "use client";
 
 import Link from "next/link";
-import { Instagram, Youtube, Facebook, MapPin, Mail, Phone } from "lucide-react";
+import { Instagram, Youtube, Facebook, MapPin, Mail, Phone, ChevronRight } from "lucide-react";
 
 export function Footer() {
     const currentYear = new Date().getFullYear();
 
     return (
-        <footer className="bg-slate-900 text-slate-400 py-16">
+        <footer className="relative z-10 bg-[#062e2e] text-slate-300 py-16">
             <div className="container mx-auto px-6">
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-12">
 
@@ -36,21 +36,23 @@ export function Footer() {
                     <div>
                         <h4 className="text-white font-bold mb-6">Tautan Cepat</h4>
                         <ul className="space-y-3 text-sm">
-                            <li>
-                                <Link href="/" className="hover:text-brand-yellow transition-colors">Beranda</Link>
-                            </li>
-                            <li>
-                                <Link href="#tentang" className="hover:text-brand-yellow transition-colors">Tentang Kami</Link>
-                            </li>
-                            <li>
-                                <Link href="#visi-misi" className="hover:text-brand-yellow transition-colors">Visi & Misi</Link>
-                            </li>
-                            <li>
-                                <Link href="#program" className="hover:text-brand-yellow transition-colors">Program Kerja</Link>
-                            </li>
-                            <li>
-                                <Link href="#lokasi" className="hover:text-brand-yellow transition-colors">Lokasi Pengabdian</Link>
-                            </li>
+                            {[
+                                { name: "Beranda", href: "/" },
+                                { name: "Program Kerja", href: "/program" },
+                                { name: "Artikel", href: "/artikel" },
+                                { name: "Galeri", href: "/galeri" },
+                                { name: "Anggota", href: "/anggota" },
+                                { name: "Sponsorship", href: "/sponsorship" },
+                            ].map((link) => (
+                                <li key={link.name}>
+                                    <Link href={link.href} className="group flex items-center gap-2 hover:text-brand-yellow transition-colors duration-300">
+                                        <span className="w-1.5 h-1.5 rounded-full bg-brand-yellow opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                                        <span className="group-hover:translate-x-1 transition-transform duration-300">
+                                            {link.name}
+                                        </span>
+                                    </Link>
+                                </li>
+                            ))}
                         </ul>
                     </div>
 

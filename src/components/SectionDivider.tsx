@@ -13,7 +13,7 @@ export function SectionDivider() {
     const y = useTransform(scrollY, [0, 300], [100, 0]);
 
     return (
-        <div className="relative w-full h-64 md:h-[500px] -mt-32 md:-mt-[250px] z-30 pointer-events-none">
+        <div className="relative w-full h-16 md:h-[200px] -mt-8 md:-mt-[200px] md:mb-32 z-10 pointer-events-none scale-100 origin-bottom">
             {/* Container to center the crossing lines */}
             <div className="absolute inset-0 flex items-center justify-center">
 
