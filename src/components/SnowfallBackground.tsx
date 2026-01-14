@@ -17,11 +17,11 @@ export function SnowfallBackground() {
     useEffect(() => {
         // Generate random snowflakes on client-side only to avoid hydration mismatch
         const flakes = Array.from({ length: 50 }).map((_, i) => {
-            const duration = 40 + Math.random() * 30; // Very slow fall (40-70s)
+            const duration = 60 + Math.random() * 60; // Very slow fall (1-2 minutes)
             return {
                 id: i,
                 x: Math.random() * 100, // Random horizontal position %
-                delay: Math.random() * 40, // Spread start times (0-40s) for continuous stream
+                delay: Math.random() * 1, // Start almost immediately (0-5s)
                 duration: duration,
                 size: 20 + Math.random() * 30, // Slightly smaller range
                 image: ORNAMENTS[Math.floor(Math.random() * ORNAMENTS.length)],

@@ -7,17 +7,17 @@ import { PROGRAM_CLUSTERS, Program } from "@/data/programs";
 import { useState, useEffect } from "react";
 
 export default function ProgramsPage() {
-    const [selectedProgram, setSelectedProgram] = useState<Program | null>(null);
+    const [activeData, setActiveData] = useState<{ program: Program; cluster: typeof PROGRAM_CLUSTERS[0] } | null>(null);
 
     // Prevent body scroll when modal is open
     useEffect(() => {
-        if (selectedProgram) {
+        if (activeData) {
             document.body.style.overflow = "hidden";
         } else {
             document.body.style.overflow = "unset";
         }
         return () => { document.body.style.overflow = "unset"; };
-    }, [selectedProgram]);
+    }, [activeData]);
 
     return (
         <main className="min-h-screen bg-[#FDF6E3] pb-32 w-full overflow-x-hidden relative">
@@ -113,7 +113,7 @@ export default function ProgramsPage() {
                                             viewport={{ once: true }}
                                             transition={{ delay: p_idx * 0.1 }}
                                             whileHover={{ y: -10, transition: { duration: 0.3 } }}
-                                            onClick={() => setSelectedProgram(program)}
+                                            onClick={() => setActiveData({ program, cluster })}
                                             className="group/card cursor-pointer w-full"
                                         >
                                             <div className={`h-full bg-white/60 backdrop-blur-sm rounded-3xl md:rounded-[2.5rem] p-6 md:p-8 border-[3px] border-dashed border-${cluster.textColor.split('-')[1]}-200 shadow-lg hover:border-${cluster.textColor.split('-')[1]}-400 hover:shadow-xl hover:shadow-${cluster.textColor.split('-')[1]}-100/50 transition-all duration-300 relative overflow-hidden active:scale-95 w-full group/inner`}>
@@ -167,14 +167,14 @@ export default function ProgramsPage() {
 
             {/* DETAILED MODAL */}
             <AnimatePresence>
-                {selectedProgram && (
+                {activeData && (
                     <>
                         {/* Backdrop */}
                         <motion.div
                             initial={{ opacity: 0 }}
                             animate={{ opacity: 1 }}
                             exit={{ opacity: 0 }}
-                            onClick={() => setSelectedProgram(null)}
+                            onClick={() => setActiveData(null)}
                             className="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-[100] grid place-items-center p-4 md:p-8"
                             style={{ zIndex: 100 }}
                         >
@@ -185,13 +185,16 @@ export default function ProgramsPage() {
                                 exit={{ opacity: 0, scale: 0.95, y: 50 }}
                                 transition={{ type: "spring", bounce: 0.3, duration: 0.5 }}
                                 onClick={(e) => e.stopPropagation()}
-                                className="bg-[#FFFDF7] rounded-[2rem] md:rounded-[3rem] w-full max-w-5xl max-h-[85vh] md:max-h-[90vh] overflow-hidden shadow-2xl relative flex flex-col"
+                                className={`bg-[#FFFDF7] rounded-[2rem] md:rounded-[3rem] w-full max-w-5xl max-h-[85vh] md:max-h-[90vh] overflow-hidden shadow-2xl relative flex flex-col border-4 ${activeData.cluster.borderColor}`}
                             >
+                                {/* Modal Background Theme Accent */}
+                                <div className={`absolute top-0 right-0 w-[400px] h-[400px] ${activeData.cluster.themeColor} blur-[80px] opacity-20 pointer-events-none rounded-full translate-x-1/2 -translate-y-1/2`}></div>
+
                                 {/* Decorative Ornaments in Modal - Reduced on Mobile */}
-                                <div className="absolute top-0 right-0 pointer-events-none opacity-10 md:opacity-20">
+                                <div className="absolute top-0 right-0 pointer-events-none opacity-30 md:opacity-40">
                                     <Image src="/ornaments/or2.png" width={300} height={300} className="transform translate-x-1/2 -translate-y-1/2 md:translate-x-1/3 md:-translate-y-1/3 rotate-12 w-32 h-32 md:w-auto md:h-auto" alt="decoration" />
                                 </div>
-                                <div className="absolute bottom-0 left-0 pointer-events-none opacity-10 md:opacity-20">
+                                <div className="absolute bottom-0 left-0 pointer-events-none opacity-30 md:opacity-40">
                                     <Image src="/ornaments/or4.png" width={250} height={250} className="transform -translate-x-1/3 translate-y-1/3 -rotate-12 w-32 h-32 md:w-auto md:h-auto" alt="decoration" />
                                 </div>
 
@@ -202,18 +205,18 @@ export default function ProgramsPage() {
                                             initial={{ opacity: 0, y: 10 }}
                                             animate={{ opacity: 1, y: 0 }}
                                             transition={{ delay: 0.2 }}
-                                            className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-brand-green/10 text-brand-green text-[10px] md:text-xs font-bold uppercase tracking-widest mb-2 md:mb-3"
+                                            className={`inline-flex items-center gap-2 px-3 py-1 rounded-full ${activeData.cluster.themeColor} ${activeData.cluster.textColor} text-[10px] md:text-xs font-bold uppercase tracking-widest mb-2 md:mb-3`}
                                         >
-                                            <Target className="w-3 h-3" />
-                                            Program Detail
+                                            <activeData.cluster.icon className="w-3 h-3" />
+                                            {activeData.cluster.name}
                                         </motion.div>
                                         <motion.h3
                                             initial={{ opacity: 0, y: 10 }}
                                             animate={{ opacity: 1, y: 0 }}
                                             transition={{ delay: 0.3 }}
-                                            className="text-2xl md:text-5xl font-black text-brand-text mb-2 leading-tight"
+                                            className={`text-2xl md:text-5xl font-black ${activeData.cluster.textColor} mb-2 leading-tight`}
                                         >
-                                            {selectedProgram.title}
+                                            {activeData.program.title}
                                         </motion.h3>
                                         <motion.p
                                             initial={{ opacity: 0, y: 10 }}
@@ -221,12 +224,12 @@ export default function ProgramsPage() {
                                             transition={{ delay: 0.4 }}
                                             className="text-slate-500 font-medium text-sm md:text-xl line-clamp-2 md:line-clamp-none"
                                         >
-                                            {selectedProgram.description}
+                                            {activeData.program.description}
                                         </motion.p>
                                     </div>
                                     <button
-                                        onClick={() => setSelectedProgram(null)}
-                                        className="absolute top-4 right-4 md:static p-2 md:p-3 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-500 hover:text-slate-800 transition-all hover:rotate-90 shadow-sm"
+                                        onClick={() => setActiveData(null)}
+                                        className={`absolute top-4 right-4 md:static p-2 md:p-3 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-500 hover:text-slate-800 transition-all hover:rotate-90 shadow-sm`}
                                     >
                                         <X className="w-5 h-5 md:w-6 md:h-6" />
                                     </button>
@@ -237,7 +240,7 @@ export default function ProgramsPage() {
                                     <div className="max-w-4xl mx-auto space-y-8 md:space-y-12">
 
                                         {/* Main Narrative */}
-                                        {selectedProgram.details && (
+                                        {activeData.program.details && (
                                             <motion.div
                                                 initial={{ opacity: 0, y: 20 }}
                                                 animate={{ opacity: 1, y: 0 }}
@@ -245,13 +248,13 @@ export default function ProgramsPage() {
                                                 className="prose prose-lg prose-slate max-w-none"
                                             >
                                                 <p className="text-base md:text-2xl text-slate-700 leading-relaxed font-serif">
-                                                    "{selectedProgram.details}"
+                                                    "{activeData.program.details}"
                                                 </p>
                                             </motion.div>
                                         )}
 
                                         {/* Sub Programs Grid */}
-                                        {selectedProgram.subPrograms && selectedProgram.subPrograms.length > 0 && (
+                                        {activeData.program.subPrograms && activeData.program.subPrograms.length > 0 && (
                                             <motion.div
                                                 initial={{ opacity: 0, y: 20 }}
                                                 animate={{ opacity: 1, y: 0 }}
@@ -267,20 +270,22 @@ export default function ProgramsPage() {
                                                 </div>
 
                                                 <div className="grid md:grid-cols-2 gap-4 md:gap-6">
-                                                    {selectedProgram.subPrograms.map((sub, idx) => (
+                                                    {activeData.program.subPrograms.map((sub, idx) => (
                                                         <motion.div
                                                             key={idx}
                                                             initial={{ opacity: 0, scale: 0.9 }}
                                                             animate={{ opacity: 1, scale: 1 }}
                                                             transition={{ delay: 0.7 + idx * 0.1 }}
-                                                            className="bg-white p-5 md:p-6 rounded-3xl md:rounded-[2rem] border border-slate-100 shadow-lg hover:shadow-xl hover:translate-y-[-4px] transition-all duration-300 group/sub"
+                                                            className={`bg-white p-5 md:p-6 rounded-3xl md:rounded-[2rem] border border-slate-100 shadow-lg hover:shadow-xl hover:translate-y-[-4px] transition-all duration-300 group/sub relative overflow-hidden`}
                                                         >
-                                                            <div className="flex items-start gap-4">
-                                                                <div className="w-10 h-10 md:w-12 md:h-12 rounded-2xl bg-gradient-to-br from-slate-50 to-white border border-slate-100 text-brand-green flex items-center justify-center shrink-0 font-bold text-base md:text-lg shadow-inner group-hover/sub:scale-110 transition-transform">
+                                                            <div className={`absolute top-0 right-0 w-24 h-24 ${activeData.cluster.themeColor} rounded-bl-[100px] opacity-20 transition-transform group-hover/sub:scale-150`}></div>
+
+                                                            <div className="flex items-start gap-4 relative z-10">
+                                                                <div className={`w-10 h-10 md:w-12 md:h-12 rounded-2xl ${activeData.cluster.themeColor} ${activeData.cluster.textColor} border border-white flex items-center justify-center shrink-0 font-bold text-base md:text-lg shadow-sm group-hover/sub:scale-110 transition-transform`}>
                                                                     {idx + 1}
                                                                 </div>
                                                                 <div>
-                                                                    <h5 className="font-bold text-base md:text-xl text-brand-text mb-1 md:mb-2 group-hover/sub:text-brand-green transition-colors">{sub.title}</h5>
+                                                                    <h5 className={`font-bold text-base md:text-xl ${activeData.cluster.textColor} mb-1 md:mb-2`}>{sub.title}</h5>
                                                                     {sub.description && (
                                                                         <p className="text-sm text-slate-500 leading-relaxed">
                                                                             {sub.description}
@@ -300,7 +305,6 @@ export default function ProgramsPage() {
                     </>
                 )}
             </AnimatePresence>
-
         </main>
     );
 }

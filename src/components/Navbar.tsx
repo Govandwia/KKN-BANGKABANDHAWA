@@ -64,11 +64,11 @@ export function Navbar() {
                         />
                         <Image
                             src="/logo/bangkatext.png"
-                            width={150}
-                            height={40}
+                            width={200}
+                            height={56}
                             alt="Bangka Bandhawa Text"
                             className={cn(
-                                "h-10 w-auto object-contain hidden sm:block transition-all duration-300",
+                                "h-14 w-auto object-contain hidden sm:block transition-all duration-300",
                                 (isScrolled || isMobileMenuOpen) && "invert opacity-80"
                             )}
                         />
