@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 import Image from "next/image";
+import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 
 export function Hero() {
@@ -50,7 +51,7 @@ export function Hero() {
             </motion.div>
 
             {/* Content */}
-            <div className="container mx-auto px-6 relative z-20 text-center">
+            <div className="container mx-auto px-6 relative z-30 text-center">
                 <motion.div
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
@@ -71,13 +72,13 @@ export function Hero() {
                     </p>
 
                     <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-                        <button className="px-8 py-4 bg-brand-red text-white font-semibold rounded-full hover:bg-brand-red/90 transition-all flex items-center gap-2 shadow-lg shadow-brand-red/20 group cursor-pointer hover:scale-105">
+                        <Link href="/program" className="px-8 py-4 bg-brand-red text-white font-semibold rounded-full hover:bg-brand-red/90 transition-all flex items-center gap-2 shadow-lg shadow-brand-red/20 group cursor-pointer hover:scale-105">
                             Jelajahi Program
                             <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
-                        </button>
-                        <button className="px-8 py-4 border-2 border-white/30 text-white font-semibold rounded-full hover:bg-white/10 transition-colors cursor-pointer hover:border-white/50">
-                            Tentang Kami
-                        </button>
+                        </Link>
+                        <a href="mailto:kknbangkabandhawa2026@gmail.com" className="px-8 py-4 border-2 border-white/30 text-white font-semibold rounded-full hover:bg-white/10 transition-colors cursor-pointer hover:border-white/50">
+                            Hubungi Kami
+                        </a>
                     </div>
                 </motion.div>
             </div>

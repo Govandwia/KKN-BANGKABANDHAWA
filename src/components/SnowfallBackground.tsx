@@ -21,7 +21,7 @@ export function SnowfallBackground() {
             return {
                 id: i,
                 x: Math.random() * 100, // Random horizontal position %
-                delay: Math.random() * 1, // Start almost immediately (0-5s)
+                delay: -Math.random() * duration, // Start immediately at random position in cycle
                 duration: duration,
                 size: 20 + Math.random() * 30, // Slightly smaller range
                 image: ORNAMENTS[Math.floor(Math.random() * ORNAMENTS.length)],

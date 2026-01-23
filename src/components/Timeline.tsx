@@ -1,54 +1,91 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Calendar, CheckCircle2, Flag, MapPin, Trophy, Users } from "lucide-react";
+import {
+    FileText, Monitor, ShieldCheck, ClipboardList, GraduationCap,
+    Stethoscope, Laptop2, Map, Megaphone, HeartHandshake,
+    BookOpen, Shirt, Flag, Activity, CheckCircle,
+    Calendar, CheckCircle2, MapPin, Trophy, Users // Keep some old ones if needed or cleanup
+} from "lucide-react";
 
 const TIMELINE_STEPS = [
     {
-        title: "Persiapan & Survey",
-        date: "Maret - Juni 2026",
-        description: "Melakukan observasi lapangan, perizinan, dan penyusunan matriks program kerja sesuai kebutuhan desa.",
-        icon: MapPin,
+        title: "Open Recruitment",
+        date: "20 Oktober - 27 Oktober 2025",
+        description: "Pendaftaran calon anggota tim KKN Bangka Bandhawa.",
+        icon: Users,
+        color: "bg-rose-100",
+        textColor: "text-rose-600"
+    },
+    {
+        title: "Wawancara",
+        date: "1 November - 4 November 2025",
+        description: "Proses seleksi dan wawancara calon anggota tim.",
+        icon: ClipboardList,
         color: "bg-blue-100",
         textColor: "text-blue-600"
     },
     {
-        title: "Penerjunan",
-        date: "1 Juli 2026",
-        description: "Upacara penerjunan resmi dan keberangkatan menuju lokasi pengabdian di Kecamatan Lubuk Besar.",
+        title: "Pengumuman",
+        date: "7 November 2025",
+        description: "Pengumuman hasil seleksi anggota tim KKN.",
+        icon: Megaphone,
+        color: "bg-indigo-100",
+        textColor: "text-indigo-600"
+    },
+    {
+        title: "First Gathering",
+        date: "16 November 2025",
+        description: "Pertemuan perdana untuk perkenalan dan penyatuan visi.",
+        icon: HeartHandshake,
+        color: "bg-violet-100",
+        textColor: "text-violet-600"
+    },
+    {
+        title: "Persiapan dan Survey",
+        date: "Januari - April 2026",
+        description: "Survey lokasi dan persiapan kebutuhan teknis di lapangan.",
+        icon: Map,
+        color: "bg-orange-100",
+        textColor: "text-orange-600"
+    },
+    {
+        title: "Penyusunan Program Kerja",
+        date: "Januari - April 2026",
+        description: "Perancangan program kerja yang sesuai dengan kebutuhan desa.",
+        icon: FileText,
+        color: "bg-cyan-100",
+        textColor: "text-cyan-600"
+    },
+    {
+        title: "Pembekalan Umum KKN",
+        date: "14 Februari - 29 Maret 2026",
+        description: "Materi pembekalan wajib dari pihak universitas.",
+        icon: GraduationCap,
+        color: "bg-emerald-100",
+        textColor: "text-emerald-600"
+    },
+    {
+        title: "Upacara Penerjunan",
+        date: "19 Juni 2026",
+        description: "Pelepasan resmi mahasiswa ke lokasi pengabdian.",
         icon: Flag,
         color: "bg-brand-green",
         textColor: "text-white"
     },
     {
-        title: "Sosialisasi Program",
-        date: "Minggu 1-2 (Juli)",
-        description: "Sowan ke tokoh masyarakat dan sosialisasi program kerja unggulan kepada target sasaran.",
-        icon: Users,
+        title: "Operasional KKN",
+        date: "20 Juni - 8 Agustus 2026",
+        description: "Pelaksanaan program kerja dan pengabdian di Desa Batu Beriga & Lubuk Besar.",
+        icon: Activity,
         color: "bg-brand-yellow",
         textColor: "text-brand-text"
     },
     {
-        title: "Eksekusi & Kolaborasi",
-        date: "Minggu 3-5 (Juli - Agustus)",
-        description: "Pelaksanaan program inti (Saintek, Soshum, Agro, Medika) dengan kolaborasi penuh bersama warga.",
-        icon: CheckCircle2,
-        color: "bg-orange-100",
-        textColor: "text-orange-600"
-    },
-    {
-        title: "Expo & Monitoring",
-        date: "Minggu 6 (Agustus)",
-        description: "Gelar karya hasil UMKM binaan dan monitoring evaluasi capaian program oleh DPL.",
-        icon: Trophy,
-        color: "bg-purple-100",
-        textColor: "text-purple-600"
-    },
-    {
-        title: "Laporan & Penarikan",
-        date: "20 Agustus 2026",
-        description: "Penyusunan laporan akhir, pamitan, dan upacara penarikan kembali ke kampus UGM.",
-        icon: Calendar,
+        title: "Pelaporan dan Penilaian",
+        date: "12 Agustus - 24 Agustus 2026",
+        description: "Penyusunan laporan akhir dan penilaian kinerja.",
+        icon: CheckCircle,
         color: "bg-slate-100",
         textColor: "text-slate-600"
     }

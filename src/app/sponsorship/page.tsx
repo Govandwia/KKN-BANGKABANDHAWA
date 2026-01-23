@@ -184,22 +184,26 @@ export default function SponsorshipPage() {
                             </p>
 
                             <div className="flex flex-col sm:flex-row gap-4 justify-center relative z-30">
-                                <motion.button
+                                <motion.a
+                                    href="mailto:kknbangkabandhawa2026@gmail.com"
                                     whileHover={{ scale: 1.05 }}
                                     whileTap={{ scale: 0.95 }}
-                                    className="px-8 py-4 bg-brand-yellow text-brand-blue font-black rounded-xl shadow-[4px_4px_0px_0px_rgba(255,255,255,0.2)] hover:shadow-none hover:translate-x-[2px] hover:translate-y-[2px] transition-all flex items-center justify-center gap-3 text-lg"
+                                    className="px-8 py-4 bg-brand-yellow text-brand-blue font-black rounded-xl shadow-[4px_4px_0px_0px_rgba(255,255,255,0.2)] hover:shadow-none hover:translate-x-[2px] hover:translate-y-[2px] transition-all flex items-center justify-center gap-3 text-lg cursor-pointer"
                                 >
                                     <Mail className="w-5 h-5" />
                                     Hubungi Kami
-                                </motion.button>
-                                <motion.button
+                                </motion.a>
+                                <motion.a
+                                    href="https://drive.google.com/file/d/18DzJRjOXek4fIXBnGxurfosQtvQgHs6M/view?usp=sharing"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
                                     whileHover={{ scale: 1.05 }}
                                     whileTap={{ scale: 0.95 }}
-                                    className="px-8 py-4 bg-transparent text-white font-bold rounded-xl border-2 border-white/30 hover:bg-white/10 transition-all flex items-center justify-center gap-3 text-lg"
+                                    className="px-8 py-4 bg-transparent text-white font-bold rounded-xl border-2 border-white/30 hover:bg-white/10 transition-all flex items-center justify-center gap-3 text-lg cursor-pointer"
                                 >
                                     <Download className="w-5 h-5" />
                                     Proposal
-                                </motion.button>
+                                </motion.a>
                             </div>
                         </div>
                     </div>
