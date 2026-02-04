@@ -12,7 +12,7 @@ import Image from "next/image";
 type ViewMode = "UNIT" | "CLUSTER" | "SUBUNIT";
 
 // Helper Data
-const CORE_ROLES = ["Kormanit", "Finance", "Sekre 1", "Sekre 2"];
+const CORE_ROLES = ["Kormanit", "Finance", "Sekre 1", "Sekre 2", "Sekretaris"];
 const DIVISIONS = ["HUMPUB", "DDD", "LOKO", "SPONSORSHIP"];
 const CLUSTERS = ["Saintek", "Soshum", "Agro", "Medika"];
 const DUSUNS = ["Dusun 1", "Dusun 2", "Dusun 3", "Dusun 4", "Dusun 5"];

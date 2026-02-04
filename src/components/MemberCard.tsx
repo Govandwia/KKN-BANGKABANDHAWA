@@ -6,7 +6,7 @@ import { User, Star, Quote } from "lucide-react";
 import Image from "next/image";
 import { useState } from "react";
 
-const CORE_ROLES = ["Kormanit", "Finance", "Sekre 1", "Sekre 2"];
+const CORE_ROLES = ["Kormanit", "Finance", "Sekre 1", "Sekre 2", "Kormater", "Kormasit", "Sekretaris"];
 
 interface MemberCardProps {
     member: Member;
@@ -40,7 +40,13 @@ export function MemberCard({ member, viewMode }: MemberCardProps) {
                         <div className="absolute inset-0 flex items-center justify-center text-slate-300">
                             {/* Placeholder if no image, or actual image */}
                             {member.image ? (
-                                <Image src={member.image} alt={member.name} fill className="object-cover" />
+                                <Image
+                                    src={member.image}
+                                    alt={member.name}
+                                    fill
+                                    className={`object-cover ${member.imagePosition || "object-top"}`}
+                                    style={{ transform: member.imageScale ? `scale(${member.imageScale})` : undefined }}
+                                />
                             ) : (
                                 <User className="w-16 h-16" />
                             )}
@@ -75,7 +81,12 @@ export function MemberCard({ member, viewMode }: MemberCardProps) {
                                 {member.role === 'Kadiv' || member.role === 'Anggota' ? (
                                     <p className="text-slate-400 text-xs mb-1">Divisi {member.division}</p>
                                 ) : (
-                                    <p className="text-brand-blue font-bold text-sm mb-1">{member.role}</p>
+                                    // Make sure Kormater/Kormasit/Sekretaris show their Role Name, 
+                                    // AND also their division if they have one (optional improvement)
+                                    <div className="flex flex-col">
+                                        <p className="text-brand-blue font-bold text-sm mb-1">{member.role}</p>
+                                        {member.division && <p className="text-slate-400 text-[10px]">Divisi {member.division}</p>}
+                                    </div>
                                 )}
                             </>
                         )}
