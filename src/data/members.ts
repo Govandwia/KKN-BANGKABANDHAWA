@@ -43,14 +43,14 @@ export const MEMBERS: Member[] = [
     },
     {
         id: "govan-sekre-2",
-        name: "Govan", // User: please update with full name
+        name: "Govan Dwi Aditya", // User: please update with full name
         role: "Sekre 2",
-        faculty: "Fakultas?", // User: please update
-        major: "Jurusan?", // User: please update
+        faculty: "Sekolah Vokasi", // User: please update
+        major: "Software Engineering", // User: please update
         image: "/anggota/profile-photo govan.png",
         cluster: "Saintek", // User: please update
         dusun: "Dusun 1", // User: please update
-        motto: "Bersinergi Membangun Negeri" // User: please update
+        motto: "in the end, i always win"
     },
     // Note: No "Finance" / "Bendahara" explicitly listed in the provided data.
 
