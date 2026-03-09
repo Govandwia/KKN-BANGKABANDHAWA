@@ -5,6 +5,7 @@ import { cn } from "@/lib/utils";
 import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
 import { LoadingScreen } from "@/components/LoadingScreen";
+import ChatbotWidget from "@/components/ChatbotWidget";
 
 const jakarta = Plus_Jakarta_Sans({
   subsets: ["latin"],
@@ -32,6 +33,7 @@ export default function RootLayout({
         <LoadingScreen />
         <Navbar />
         {children}
+        <ChatbotWidget />
         <Footer />
       </body>
     </html>

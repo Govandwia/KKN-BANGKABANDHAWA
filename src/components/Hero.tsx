@@ -58,7 +58,7 @@ export function Hero() {
                     transition={{ duration: 0.6 }}
                 >
                     <span className="inline-block py-1 px-3 rounded-full bg-white/10 backdrop-blur-md text-white border border-white/20 text-sm font-semibold tracking-wide mb-6">
-                        KKN-PPM UGM 2026
+                        KKN-PPM UGM Periode 2 2026
                     </span>
 
                     <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold font-sans text-white mb-6 tracking-tight text-balance">
